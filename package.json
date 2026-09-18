@@ -1,0 +1,29 @@
+{
+  "name": "intosquare",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "description": "IntoSquare pre-launch landing page, based on the supplied React project.",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "build:pages": "node scripts/build.mjs --pages",
+    "preview": "node scripts/serve.mjs",
+    "test": "node --experimental-strip-types --test --test-isolation=none tests/waitlist.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3",
+    "tailwindcss": "4.1.10",
+    "@types/react": "18.2.79",
+    "@types/react-dom": "18.2.25",
+    "@types/node": "22.16.5"
+  },
+  "engines": {
+    "node": ">=22.16.0"
+  }
+}
