@@ -1,52 +1,17 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { WAITLIST_ENDPOINT, isWaitlistConfigured } from "@/config/waitlist";
-import { submitEmail, validateEmail } from "@/lib/waitlist";
-
+import { useRef, useState, type FormEvent } from 'react';
+import { WAITLIST_ENDPOINT, isWaitlistConfigured } from '@/config/waitlist';
+import { submitEmail, validateEmail } from '@/lib/waitlist';
 export function Waitlist() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
-  const [ready, setReady] = useState(false);
-  const inFlight = useRef(false);
-  const controllerRef = useRef<AbortController | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  useEffect(() => { setReady(true); return () => controllerRef.current?.abort(); }, []);
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (inFlight.current || status === "success") return;
-    const error = validateEmail(email);
-    if (error) { setStatus("error"); setMessage(error); inputRef.current?.focus(); return; }
-    inFlight.current = true;
-    setStatus("sending");
-    setMessage("");
-    const controller = new AbortController();
-    controllerRef.current = controller;
-    const timeout = setTimeout(() => controller.abort(), 15000);
-    try {
-      await submitEmail(WAITLIST_ENDPOINT, email, controller.signal);
-      setStatus("success");
-      setEmail("");
-    } catch (error) {
-      setStatus("error");
-      setMessage(error instanceof Error && error.name !== "AbortError" && !(error instanceof TypeError) ? error.message : "Couldn't connect. Please check your connection and try again.");
-    } finally {
-      clearTimeout(timeout);
-      inFlight.current = false;
-    }
-  }
-
-  return <section className="waitlist" id="notify" aria-labelledby="notify-heading">
-    <span className="section-index micro">(COMING SOON)</span>
-    <h2 id="notify-heading">Be there <br/>at <span className="serif">launch.</span></h2>
-    <p>{isWaitlistConfigured ? "Leave your email. We'll let you know when IntoSquare is ready." : "The plugin is on its way. Email signups will open here soon."}</p>
-    {status === "success" ? <div className="signup-success" role="status"><span aria-hidden="true">↗</span><h3>You're on the list.</h3><p>See you in your inbox when we launch.</p></div> : <form onSubmit={handleSubmit} action={isWaitlistConfigured ? WAITLIST_ENDPOINT : undefined} method="post" noValidate aria-busy={status === "sending"}>
-      <label className="micro" htmlFor="signup-email">YOUR EMAIL</label>
-      <div className={`email-field ${status === "error" ? "has-error" : ""}`}><input ref={inputRef} id="signup-email" type="email" name="email" value={email} onChange={event => { setEmail(event.target.value); if (status === "error") { setStatus("idle"); setMessage(""); } }} placeholder="you@your.studio" autoComplete="email" autoCapitalize="none" spellCheck={false} required maxLength={254} aria-invalid={status === "error"} aria-describedby={status === "error" ? "signup-error signup-privacy" : "signup-privacy"} disabled={!ready || !isWaitlistConfigured || status === "sending"}/></div>
-      <button className="signup-submit micro" type="submit" disabled={!ready || !isWaitlistConfigured || status === "sending"}>{!isWaitlistConfigured ? "SIGNUPS OPEN SOON" : status === "sending" ? "JOINING…" : "NOTIFY ME AT LAUNCH"}<span aria-hidden="true">↗</span></button>
-      <p id="signup-error" className="form-error" role="alert">{message}</p>
-      <p id="signup-privacy" className="privacy-note">{isWaitlistConfigured ? "By signing up, you agree to receive an email about the IntoSquare release. No newsletters. No noise." : "One release announcement. No newsletters. No noise."}</p>
-      <noscript><p className="privacy-note">Enable JavaScript to use this signup form.</p></noscript>
-    </form>}
-  </section>;
+ const [email,setEmail]=useState('');const [website,setWebsite]=useState('');
+ const [status,setStatus]=useState<'idle'|'sending'|'success'|'error'>('idle');const [message,setMessage]=useState('');
+ const input=useRef<HTMLInputElement>(null);const busy=useRef(false);
+ async function handleSubmit(event:FormEvent<HTMLFormElement>){
+  event.preventDefault();if(busy.current||status==='success')return;
+  const error=validateEmail(email);if(error){setStatus('error');setMessage(error);input.current?.focus();return;}
+  busy.current=true;setStatus('sending');setMessage('');const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),20000);
+  try{await submitEmail(WAITLIST_ENDPOINT,email,controller.signal,fetch,website);setStatus('success');setEmail('');}
+  catch(error){setStatus('error');setMessage(error instanceof Error && error.name!=='AbortError' && !(error instanceof TypeError)?error.message:'Couldn’t connect. Please try again.');}
+  finally{clearTimeout(timer);busy.current=false;}
+ }
+ return <section className="waitlist" id="notify" aria-labelledby="notify-heading"><span className="eyebrow">Your next workflow. Coming October 2026.</span><h2 id="notify-heading">Let’s make the move.</h2><p>Get one email when IntoSquare launches.<br/>Then bring your first design along.</p>{status==='success'?<div className="signup-success" role="status"><h3>You’re on the list.</h3><p>We’ll email you when IntoSquare launches in October.</p></div>:<form onSubmit={handleSubmit} noValidate aria-busy={status==='sending'}><label htmlFor="signup-email">Email address</label><div className="signup-row"><input ref={input} id="signup-email" type="email" name="email" value={email} onChange={event=>{setEmail(event.target.value);if(status==='error'){setStatus('idle');setMessage('');}}} placeholder="you@your.studio" autoComplete="email" autoCapitalize="none" spellCheck={false} required maxLength={254} aria-invalid={status==='error'} aria-describedby={status==='error'?'signup-error signup-privacy':'signup-privacy'} disabled={status==='sending'}/><button className="button signup-submit" type="submit" disabled={status==='sending'||!isWaitlistConfigured}>{status==='sending'?'Joining…':'Notify me'}<span aria-hidden="true">↗</span></button></div><div className="honeypot" aria-hidden="true"><label htmlFor="signup-website">Leave empty</label><input id="signup-website" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={event=>setWebsite(event.target.value)}/></div><p className="form-error" id="signup-error" role="alert">{message}</p><p className="privacy-note" id="signup-privacy">By joining, you agree to receive the IntoSquare launch email.<br/>No newsletter. No spam. Just the good news.</p>{!isWaitlistConfigured&&<p className="signup-setup-note">Email signup opens soon.</p>}<noscript><p className="privacy-note">Enable JavaScript to join.</p></noscript></form>}<details className="privacy-details"><summary>How we use your email</summary><p>We save your email and signup date in a private Google Sheet and send a signup notification to hello@intosquare.app. Your address is used for the launch announcement only. To remove it, email <a href="mailto:hello@intosquare.app">hello@intosquare.app</a>.</p></details></section>;
 }

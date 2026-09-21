@@ -14,8 +14,11 @@ test("send a trimmed email and release-only consent after validation", async () 
     assert.equal(url, "https://example.com/form");
     assert.equal(init?.method, "POST");
     assert.equal(init?.signal, controller.signal);
+    assert.equal(new Headers(init?.headers).get("Content-Type"), "text/plain;charset=utf-8");
     const data = JSON.parse(init?.body as string);
     assert.equal(data.email, "designer@example.com");
+    assert.equal(data.source, "intosquare-launch-2026-10");
+    assert.equal(data.website, "");
     assert.match(data.consent, /released/);
     return Response.json({ ok: true });
   });
@@ -35,4 +38,9 @@ test("accept explicit provider success only", async () => {
 });
 test("network failures propagate for retry without storing the email", async () => {
   await assert.rejects(submitEmail("https://example.com/form", "designer@example.com", undefined, async () => { throw new TypeError("Network unavailable"); }), /Network unavailable/);
+});
+test("malformed acknowledgement gives a readable retry message", async () => {
+  for (const response of [new Response("<html>Error</html>"), Response.json(null), Response.json([])]) {
+    await assert.rejects(submitEmail("https://example.com/form", "designer@example.com", undefined, async () => response), /couldn't confirm/);
+  }
 });

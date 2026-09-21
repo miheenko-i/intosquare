@@ -1,10 +1,12 @@
-# IntoSquare — release landing page
+# IntoSquare — launch website
 
-Public website: https://miheenko-i.github.io/intosquare/
+Public website: https://intosquare.app/
 
-A pre-launch page built from the supplied IntoSquare React project. It keeps the original Figma/Fluid Engine illustration and illustrated three-step workflow. The page uses a dark, warm-neutral palette, fluid full-width layout, and responsive typography.
+A React prelaunch landing page for the IntoSquare Figma plugin and Chrome extension. The visual direction takes cues from Public.com: a clear oversized introduction, product-led illustrations, generous whitespace, quiet cards and a short story. All illustrations are original HTML/CSS; the logo is the vector used in the plugins. TikTok Sans and its OFL license are bundled locally.
 
-## Develop
+Launch: October 2026. Free includes 3 successful transfers total to one Squarespace site. Pro is $15/month or $144/year, with unlimited transfers/sites and Site Styles. These are planned launch prices; this page does not take payments.
+
+## Develop and publish
 
 Requires Node.js 22.16 or newer.
 
@@ -13,45 +15,43 @@ npm ci
 npm run dev
 npm run typecheck
 npm test
-```
-
-Set `PORT` to override the local preview port (default 4173).
-
-## Build and publish
-
-```sh
 npm run build:pages
 ```
 
-Commit the updated source and `docs/index.html` to `main`. GitHub Pages serves `main /docs` and publishes automatically on commits. The standalone output is also generated as `dist/IntoSquare.html`.
+The build prerenders the page and embeds its font, styles and script in `docs/index.html`. GitHub Pages serves `main /docs`; preserve `docs/CNAME` for intosquare.app. `dist/IntoSquare.html` is the standalone output. Preview uses port 4173 unless PORT is set. No analytics or external font requests are included.
 
-The build pre-renders the React page, so its information and illustrations remain readable without JavaScript. Signup requires JavaScript. The page has no analytics or externally loaded fonts.
+## Signup flow
 
-## Email signup configuration
+The website POSTs to our Google Apps Script web app, configured in `waitlist.config.json` (or overridden by `INTOSQUARE_WAITLIST_ENDPOINT` at build time). This is a public endpoint, not a secret key.
 
-Email collection is **not active** until a real form endpoint is supplied. While `endpoint` is empty, the public form is disabled and says “Signups open soon.” It does not store visitor addresses or simulate successful subscriptions.
+1. Validate the address, release-only consent and honeypot.
+2. Acquire a script lock and check for duplicate addresses.
+3. Save the email, UTC signup date, consent and source in the private Subscribers sheet.
+4. Send a notification to **hello@intosquare.app** from the Google account that owns the script.
+5. Mark the notification sent, or leave it pending for the hourly retry trigger.
+6. Return explicit JSON acknowledgement; only then show success in the browser.
 
-Set the public HTTPS endpoint in `waitlist.config.json`, or use the `INTOSQUARE_WAITLIST_ENDPOINT` environment variable at build time. Never put a secret key into this file.
+The sheet is never publicly shared and the web app has no subscriber-reading endpoint. Duplicate submissions do not resend successful notifications. Input is stored as text to prevent spreadsheet formula execution. Requests have a size cap, a honeypot and a global cap of 20 new signups per minute. This is basic abuse protection, not a CAPTCHA or strong bot defense.
 
-The current adapter POSTs JSON containing `email`, a subject, and consent to one release announcement. It expects a successful HTTP response plus explicit JSON `{ "ok": true }` or `{ "success": true }`. The provider's CORS and activation settings must allow the live GitHub Pages origin; provider-specific setup must be verified before enabling collection.
+Google's daily mail quota applies. A saved signup is successful even when the notification is queued. Pending mail retries hourly through `retryPendingNotifications`; check the Notification column and Apps Script execution history if delivery stops. A crash after mail acceptance but before writing the sent marker can result in a repeated notification. Mail acceptance does not prove inbox delivery.
 
-After configuration, run the checks, rebuild with `npm run build:pages`, and commit the updated `docs/index.html`. Subscription success appears only after an acknowledged provider response. Errors keep the entered address available for retry. Requests time out after 15 seconds and duplicate clicks are blocked.
+The site does not send the October announcement automatically. Export the real subscriber addresses into the eventual mailing service when ready. The clearly named `intosquare-form-test@example.com` row is a test, not a subscriber; exclude it from any mailing export.
 
-The site collects requests; sending the release announcement will be handled separately in the selected email service.
+## Updating the backend
 
-## Main files
+`google-apps-script/Code.gs` is the public source template for the deployed script. Set SHEET_ID to your private spreadsheet ID inside the Google Apps Script editor before deployment; do not commit that private configuration. The deployed editor contains the configured equivalent. Deploy as a **Web app**, execute as owner, access **Anyone**. This exposes only the validated write endpoint, not the private spreadsheet. Owner authorization is required for Sheets and email. Keep the existing deployment ID when releasing a new version; otherwise update the frontend endpoint and rebuild.
 
-- `src/components/landing/Hero.tsx`: compact introduction and original illustration.
-- `src/components/landing/DemoFrame.tsx`: Figma → native Squarespace blocks.
-- `src/components/landing/HowItWorks.tsx`: original illustrated workflow.
-- `src/components/landing/Waitlist.tsx`: accessible signup and submission states.
-- `src/lib/waitlist.ts`: email validation and provider response handling.
-- `src/waitlist.css`: visual changes and fluid sizing.
-- `src/styles.css`: original illustration utilities and tokens.
-- `waitlist.config.json`: public form endpoint.
+Install one time-driven trigger for `retryPendingNotifications`, main deployment, hourly. Do not install duplicate triggers. Notification emails go only to the fixed business inbox; visitors receive only the later launch announcement.
 
-## Verification
+## Main files and checks
 
-Build and TypeScript checks pass. Email transport tests cover validation, provider success/rejection, missing configuration, network errors, and release-only consent without sending real email. Browser layout checks passed at 320, 390, 768, 1024, 1440, and 2560 CSS pixels, with no horizontal overflow or console errors.
+- `src/components/landing/Promo.tsx`: story, illustrations, pricing, FAQ and interactive demos.
+- `src/promo.css`: responsive layout, type hierarchy and reduced-motion styling.
+- `src/components/landing/Waitlist.tsx`: accessible form and states.
+- `src/lib/waitlist.ts`: validation and acknowledged submission.
+- `src/config/launch.ts`: launch and pricing constants.
+- `google-apps-script/Code.gs`: private-sheet storage and notification handler.
+- `tests/signup-backend.test.mjs`: storage, recipient, duplicates, invalid inputs, failures, retries, formula safety and rate limit.
+- `tests/waitlist.test.ts`: frontend transport and failure handling.
 
-Visual references: [SV Design Studio](https://www.behance.net/gallery/219233941/SV-Design-Studio) and [Brandon Mercer](https://www.behance.net/gallery/175856917/Brandon-Mercer). Reference images are not copied into the website.
+The form uses a CORS-readable simple POST, never `no-cors` or simulated success. It times out after 20 seconds and preserves the entered address on errors. The unconfigured build disables signup.

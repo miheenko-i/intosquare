@@ -64,7 +64,8 @@ export async function build() {
     const code = output.outputText.replace(/\brequire\((['"])([^'"]+)\1\)/g, (_match, _quote, specifier) => `require(${JSON.stringify(resolveImport(specifier, file))})`);
     modules.push(`${JSON.stringify(relative(file))}: function(require, module, exports) {\n${code}\n}`);
   }
-  const cssSource = await fs.readFile(path.join(sourceRoot,"waitlist.css"),"utf8");
+  const font = await fs.readFile(path.join(sourceRoot,"assets/fonts/TikTokSans.ttf"));
+  const cssSource = (await fs.readFile(path.join(sourceRoot,"promo.css"),"utf8")).replace("__TIKTOK_FONT__", "data:font/ttf;base64," + font.toString("base64"));
   const twDir = path.dirname(require.resolve("tailwindcss/package.json"));
   const compiler = await tailwind.compile(cssSource, {
     base: sourceRoot,

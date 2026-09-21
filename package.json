@@ -9,7 +9,7 @@
     "build": "node scripts/build.mjs",
     "build:pages": "node scripts/build.mjs --pages",
     "preview": "node scripts/serve.mjs",
-    "test": "node --experimental-strip-types --test --test-isolation=none tests/waitlist.test.ts",
+    "test": "node --experimental-strip-types --test --test-isolation=none tests/waitlist.test.ts tests/signup-backend.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
