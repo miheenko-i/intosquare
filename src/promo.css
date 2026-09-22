@@ -170,6 +170,22 @@ button,.button,.mini-copy,.sample-button,.style-result-button{font-weight:500}
 @keyframes feedback-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:700px){.site-header nav{display:flex;flex-direction:column;gap:0;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px) scale(.98);transform-origin:top;transition:opacity .28s ease,transform .35s cubic-bezier(.22,1,.36,1),visibility 0s .35s}.site-header nav.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1);transition-delay:0s}[data-theme=dark] .site-header nav{background:#191919;color:#f5f5f5}}
 
+/* One entrance per page load, staggered by object; content never depends on JS. */
+.hero h1>span{display:inline-block}
+.hero h1>span.hero-heading-primary{color:var(--ink)}
+.hero :is(.launch-pill,h1>span,.hero-bottom>p,.hero-bottom>.button,.intro-video,.hero-proof>span){animation:hero-arrive .8s cubic-bezier(.22,1,.36,1) backwards;animation-delay:var(--hero-delay,0s)}
+.hero .launch-pill{--hero-delay:.06s}
+.hero h1>.hero-heading-primary{--hero-delay:.17s}
+.hero h1>span:last-child{--hero-delay:.29s}
+.hero .hero-bottom>p{--hero-delay:.41s}
+.hero .hero-bottom>.button{--hero-delay:.52s}
+.hero .intro-video{--hero-delay:.65s}
+.hero .hero-proof>span{display:inline-block;--hero-delay:.8s}
+.hero .hero-proof>span:nth-child(2){--hero-delay:.89s}
+.hero .hero-proof>span:nth-child(3){--hero-delay:.98s}
+.hero:focus-within :is(.launch-pill,h1>span,.hero-bottom>p,.hero-bottom>.button,.intro-video,.hero-proof>span){animation:none}
+@keyframes hero-arrive{from{opacity:0;transform:translateY(22px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+
 /* Text links share a quiet underline reveal and directional arrow motion. */
 :is(.site-header nav a,.faq p a,.footer-main a:not(.brand),.footer-bottom a){position:relative;text-decoration:none;transition:color .3s ease,opacity .3s ease}
 :is(.site-header nav a,.faq p a,.footer-main a:not(.brand),.footer-bottom a)::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right center;transition:transform .38s cubic-bezier(.22,1,.36,1);pointer-events:none}
