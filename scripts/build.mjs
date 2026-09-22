@@ -65,7 +65,9 @@ export async function build() {
     modules.push(`${JSON.stringify(relative(file))}: function(require, module, exports) {\n${code}\n}`);
   }
   const font = await fs.readFile(path.join(sourceRoot,"assets/fonts/TikTokSans.ttf"));
-  const cssSource = (await fs.readFile(path.join(sourceRoot,"promo.css"),"utf8")).replace("__TIKTOK_FONT__", "data:font/ttf;base64," + font.toString("base64"));
+  const lenisDirectory = path.dirname(require.resolve("lenis"));
+  const lenisCss = await fs.readFile(path.join(lenisDirectory,"lenis.css"),"utf8");
+  const cssSource = lenisCss + "\n" + (await fs.readFile(path.join(sourceRoot,"promo.css"),"utf8")).replace("__TIKTOK_FONT__", "data:font/ttf;base64," + font.toString("base64"));
   const twDir = path.dirname(require.resolve("tailwindcss/package.json"));
   const compiler = await tailwind.compile(cssSource, {
     base: sourceRoot,
@@ -76,6 +78,8 @@ export async function build() {
   });
   const css = compiler.build([...candidates]);
   const runtime = await fs.readFile(path.join(root,"vendor/react-runtime.js"),"utf8");
+  const lenisLicense = await fs.readFile(path.join(lenisDirectory,"../LICENSE"),"utf8");
+  const lenisRuntime = "/* " + lenisLicense + " */\n" + (await fs.readFile(path.join(lenisDirectory,"lenis.min.js"),"utf8")).replace(/\/\/# sourceMappingURL=.*$/gm, "");
   const application = `(function(){"use strict";const definitions={${modules.join(",\n")}};const cache={};
 const builtins={"react":globalThis.React,"react-dom/client":{createRoot:globalThis.ReactDOM.createRoot},"react/jsx-runtime":{Fragment:globalThis.React.Fragment,jsx:jsx,jsxs:jsx}};
 function jsx(type,props,key){return globalThis.React.createElement(type,key===undefined?props:Object.assign({},props,{key:key}));}
@@ -83,7 +87,7 @@ function require(id){if(builtins[id])return builtins[id];if(cache[id])return cac
 require("src/main.tsx");})();`;
   const htmlTemplate = await fs.readFile(path.join(root,"index.html"),"utf8");
   // Inline runtime and CSS. Pre-render content too, so a script-blocked viewer is not blank.
-  let html = htmlTemplate.replace("<!-- APP_STYLES -->",()=>`<style>${css.replaceAll("</style", "<\\/style")}</style>`).replace("<!-- APP_SCRIPTS -->",()=>`<script>${(runtime+"\n"+application).replaceAll("</script", "<\\/script")}</script>`);
+  let html = htmlTemplate.replace("<!-- APP_STYLES -->",()=>`<style>${css.replaceAll("</style", "<\\/style")}</style>`).replace("<!-- APP_SCRIPTS -->",()=>`<script>${(runtime+"\n"+lenisRuntime+"\n"+application).replaceAll("</script", "<\\/script")}</script>`);
   let markup;
   let renderer;
   try {
