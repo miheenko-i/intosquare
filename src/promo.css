@@ -146,3 +146,7 @@ html.lenis{scroll-behavior:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.42s;animation-timing-function:cubic-bezier(.22,.61,.36,1);mix-blend-mode:normal}
 @supports not (view-transition-name:root){html,body,.feature-card,.feature-wide,.step-art,.price-card,.waitlist,.intro-video,.window-bar,.edit-controls,.demo-toolbar,.style-panel,.mini-plugin,.destination-mini,.button,.signup-row,.signup-row input{transition:background-color .4s ease,color .4s ease,border-color .4s ease}}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none!important}}
+
+.section-picker:not(.is-active) .demo-pointer,.copy-animation:not(.is-active) .copy-pointer{opacity:0}
+
+button,.button,.mini-copy,.sample-button,.style-result-button{font-weight:500}
