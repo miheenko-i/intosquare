@@ -26,7 +26,8 @@ export function useSmoothScroll() {
       if (!target) return;
       event.preventDefault();
       if (location.hash !== hash) history.pushState(null, "", hash);
-      scroller.scrollTo(target, {
+      // A sticky header's bounding box follows the viewport, so #top must use 0.
+      scroller.scrollTo(hash === "#top" ? 0 : target, {
         duration: 0.9,
         lerp: undefined,
         onComplete: () => {

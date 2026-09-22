@@ -4,9 +4,13 @@ export function ThemeToggle() {
   const [dark, setDark] = useState(() => typeof document !== "undefined" && document.documentElement.dataset.theme === "dark");
   const toggle = () => {
     const next = !dark;
-    document.documentElement.dataset.theme = next ? "dark" : "light";
-    try { localStorage.setItem("intosquare-theme", next ? "dark" : "light"); } catch { /* Storage can be disabled in private browsers. */ }
-    setDark(next);
+    const applyTheme = () => {
+      document.documentElement.dataset.theme = next ? "dark" : "light";
+      try { localStorage.setItem("intosquare-theme", next ? "dark" : "light"); } catch { /* Storage can be disabled in private browsers. */ }
+      setDark(next);
+    };
+    if (document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.startViewTransition(applyTheme);
+    else applyTheme();
   };
   const label = dark ? "Switch to light theme" : "Switch to dark theme";
   return <button className="theme-toggle" onClick={toggle} aria-label={label} title={label} aria-pressed={dark}>
