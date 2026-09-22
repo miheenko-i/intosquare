@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#ffffff" />
-  <meta name="color-scheme" content="light" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    try {
+      const storedTheme = localStorage.getItem('intosquare-theme');
+      document.documentElement.dataset.theme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    } catch { document.documentElement.dataset.theme = 'light'; }
+  </script>
   <meta name="description" content="Move your Figma layouts and site styles into editable Squarespace blocks. Launching October 2026. Get notified at launch." />
   <meta property="og:title" content="IntoSquare — Design in Figma. Keep editing in Squarespace." />
   <meta property="og:description" content="From Figma to Squarespace. Still your design. Launching October 2026." />
