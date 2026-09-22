@@ -151,6 +151,36 @@ html.lenis{scroll-behavior:auto}
 
 button,.button,.mini-copy,.sample-button,.style-result-button{font-weight:500}
 
+.animated-details .details-content{display:flow-root;opacity:0;transform:translateY(-6px);transition:opacity .3s ease,transform .38s cubic-bezier(.22,1,.36,1)}
+.animated-details[data-expanded=true] .details-content{opacity:1;transform:translateY(0)}
+.faq-list .animated-details summary span{transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.faq-list .animated-details[data-expanded=false] summary span{transform:rotate(0)}
+.faq-list .animated-details[data-expanded=true] summary span{transform:rotate(45deg)}
+.privacy-details.animated-details summary{list-style:none}
+.privacy-details.animated-details summary::-webkit-details-marker{display:none}
+.privacy-details.animated-details summary::before{content:'›';display:inline-block;margin-right:7px;transform:rotate(0);transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.privacy-details.animated-details[data-expanded=true] summary::before{transform:rotate(90deg)}
+.device-switch.sliding-switch button{position:relative;z-index:1;transition:color .3s ease}
+.device-switch.sliding-switch[data-ready=true] button[aria-pressed=true],[data-theme=dark] .device-switch.sliding-switch[data-ready=true] button[aria-pressed=true]{background:transparent;box-shadow:none;color:var(--ink)}
+.site-header nav a,.footer-main a,.text-button,.faq-list summary{transition:color .25s ease,opacity .25s ease}
+.edit-controls button{transition:outline-color .3s ease,transform .3s ease}
+.edit-controls button:hover{transform:scale(1.1)}
+.signup-row input{transition:border-color .25s ease,box-shadow .25s ease}
+.signup-success{animation:feedback-in .4s cubic-bezier(.22,1,.36,1) both}
+@keyframes feedback-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){.site-header nav{display:flex;flex-direction:column;gap:0;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px) scale(.98);transform-origin:top;transition:opacity .28s ease,transform .35s cubic-bezier(.22,1,.36,1),visibility 0s .35s}.site-header nav.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1);transition-delay:0s}[data-theme=dark] .site-header nav{background:#191919;color:#f5f5f5}}
+
+/* Text links share a quiet underline reveal and directional arrow motion. */
+:is(.site-header nav a,.faq p a,.footer-main a:not(.brand),.footer-bottom a){position:relative;text-decoration:none;transition:color .3s ease,opacity .3s ease}
+:is(.site-header nav a,.faq p a,.footer-main a:not(.brand),.footer-bottom a)::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right center;transition:transform .38s cubic-bezier(.22,1,.36,1);pointer-events:none}
+:is(.faq p a,.footer-main a:not(.brand),.footer-bottom a) span[aria-hidden=true]{display:inline-block;transition:transform .38s cubic-bezier(.22,1,.36,1)}
+:is(.site-header nav a,.faq p a,.footer-main a:not(.brand),.footer-bottom a):focus-visible::after{transform:scaleX(1);transform-origin:left center}
+@media(hover:hover) and (pointer:fine){
+ :is(.site-header nav a,.faq p a,.footer-main a:not(.brand),.footer-bottom a):hover::after{transform:scaleX(1);transform-origin:left center}
+ :is(.faq p a,.footer-main a:not(.brand),.footer-bottom a):hover span[aria-hidden=true]{transform:translate(3px,-3px)}
+}
+@media(max-width:700px){.site-header nav a::after{left:14px;right:14px;bottom:8px}}
+
 .sliding-switch{position:relative;isolation:isolate}
 .sliding-switch::before{content:"";position:absolute;left:0;top:0;width:var(--switch-width,0px);height:var(--switch-height,0px);transform:translate(var(--switch-x,5px),var(--switch-y,5px));border-radius:30px;background:#fff;box-shadow:0 2px 5px #0000000d;pointer-events:none;opacity:0;transition:transform .42s cubic-bezier(.22,1,.36,1),width .42s cubic-bezier(.22,1,.36,1),background-color .3s}
 .sliding-switch[data-ready=true]::before{opacity:1}

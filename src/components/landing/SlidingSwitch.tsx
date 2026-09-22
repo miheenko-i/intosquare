@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 
-export function SlidingSwitch({ selected, children }: { selected: string; children: ReactNode }) {
+export function SlidingSwitch({ selected, children, className = 'billing-toggle', label = 'Billing period' }: { selected: string; children: ReactNode; className?: string; label?: string }) {
  const ref = useRef<HTMLDivElement>(null);
  useEffect(() => {
   const control = ref.current;
@@ -20,5 +20,5 @@ export function SlidingSwitch({ selected, children }: { selected: string; childr
   for (const button of control.querySelectorAll('button')) observer.observe(button);
   return () => observer.disconnect();
  }, [selected]);
- return <div ref={ref} className="billing-toggle sliding-switch" role="group" aria-label="Billing period">{children}</div>;
+ return <div ref={ref} className={`${className} sliding-switch`} role="group" aria-label={label}>{children}</div>;
 }
