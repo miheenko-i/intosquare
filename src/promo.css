@@ -151,6 +151,40 @@ html.lenis{scroll-behavior:auto}
 
 button,.button,.mini-copy,.sample-button,.style-result-button{font-weight:500}
 
+.sliding-switch{position:relative;isolation:isolate}
+.sliding-switch::before{content:"";position:absolute;left:0;top:0;width:var(--switch-width,0px);height:var(--switch-height,0px);transform:translate(var(--switch-x,5px),var(--switch-y,5px));border-radius:30px;background:#fff;box-shadow:0 2px 5px #0000000d;pointer-events:none;opacity:0;transition:transform .42s cubic-bezier(.22,1,.36,1),width .42s cubic-bezier(.22,1,.36,1),background-color .3s}
+.sliding-switch[data-ready=true]::before{opacity:1}
+.billing-toggle.sliding-switch button{position:relative;z-index:1;color:var(--muted);transition:color .3s ease}
+.billing-toggle.sliding-switch[data-ready=true] button[aria-pressed=true],[data-theme=dark] .billing-toggle.sliding-switch[data-ready=true] button[aria-pressed=true]{background:transparent;box-shadow:none;color:var(--ink)}
+[data-theme=dark] .sliding-switch::before{background:#444;box-shadow:0 2px 6px #0003}
+
+/* A tiled grain layer moves without regenerating the SVG filter each frame. */
+body::after{content:"";position:fixed;inset:-12px;z-index:100;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");background-size:180px 180px;animation:ambient-grain .8s steps(1,end) infinite;will-change:transform}
+[data-theme=dark] body::after{opacity:.035}
+@keyframes ambient-grain{0%,100%{transform:translate(0,0)}25%{transform:translate(-7px,5px)}50%{transform:translate(6px,-8px)}75%{transform:translate(-4px,-3px)}}
+@media(prefers-reduced-motion:reduce){body::after{animation:none;will-change:auto}}
+
+/* Rounded horizontal fill and sliding labels, shared by all primary CTAs. */
+.button{--button-bg:#111;--button-fg:#fff;--button-hover-bg:#fff;--button-hover-fg:#111;position:relative;isolation:isolate;overflow:hidden;background:var(--button-bg);color:var(--button-fg);transition:border-color .45s ease}
+.button.button-outline{--button-bg:transparent;--button-fg:#111;--button-hover-bg:#111;--button-hover-fg:#fff}
+[data-theme=dark] .button{--button-bg:#f5f5f5;--button-fg:#111;--button-hover-bg:#171717;--button-hover-fg:#fff;background:var(--button-bg);color:var(--button-fg)}
+[data-theme=dark] .button.button-outline{--button-bg:transparent;--button-fg:#f5f5f5;--button-hover-bg:#f5f5f5;--button-hover-fg:#111}
+[data-theme=dark] .waitlist .button{--button-bg:#171717;--button-fg:#fff;--button-hover-bg:#fff;--button-hover-fg:#111}
+.button::before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:var(--button-hover-bg);transform:translateX(-101%);transition:transform .55s cubic-bezier(.22,1,.36,1);z-index:-1;pointer-events:none}
+.button .button-content{position:relative;display:block;width:100%;font-size:inherit;line-height:inherit;gap:inherit;justify-content:inherit}
+.button .button-face{display:flex;align-items:center;justify-content:inherit;gap:inherit;font-size:inherit;line-height:inherit;white-space:nowrap;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .25s ease}
+.button .button-face-hover{position:absolute;inset:0;color:var(--button-hover-fg);transform:translateX(-35%);opacity:0;pointer-events:none}
+.button:focus-visible:not(:disabled)::before{transform:translateX(0)}
+.button:focus-visible:not(:disabled) .button-face:not(.button-face-hover){transform:translateX(35%);opacity:0}
+.button:focus-visible:not(:disabled) .button-face-hover{transform:translateX(0);opacity:1}
+@media(hover:hover) and (pointer:fine){
+ .button:hover:not(:disabled),[data-theme=dark] .button:hover:not(:disabled),[data-theme=dark] .waitlist .button:hover:not(:disabled){background:var(--button-bg);transform:none}
+ .button:hover:not(:disabled)::before{transform:translateX(0)}
+ .button:hover:not(:disabled) .button-face:not(.button-face-hover){transform:translateX(35%);opacity:0}
+ .button:hover:not(:disabled) .button-face-hover{transform:translateX(0);opacity:1}
+}
+@media(hover:none){.button:hover,[data-theme=dark] .button:hover,[data-theme=dark] .waitlist .button:hover{background:var(--button-bg);transform:none}}
+
 /* More whitespace across the page, with restrained spacing on small screens. */
 .hero{padding-top:88px}.hero h1{margin-top:32px}.hero-bottom{margin:36px 0 52px}.hero-proof{padding-block:38px}
 .section{padding-block:144px}.section-intro{margin-bottom:68px}.section-intro h2{margin-bottom:24px}.section-intro p{line-height:1.7}
