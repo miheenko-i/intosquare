@@ -134,11 +134,17 @@ require("src/main.tsx");})();`;
   await fs.writeFile(path.join(root,"dist/app.css"),css);
   await fs.writeFile(path.join(root,"dist/IntoSquare.html"),html);
   await fs.writeFile(path.join(root,"dist/.nojekyll"), "");
+  const privacy = (await fs.readFile(path.join(sourceRoot,"privacy.html"),"utf8"))
+    .replace("__TIKTOK_FONT__", "data:font/ttf;base64," + font.toString("base64"));
+  await fs.mkdir(path.join(root,"dist/privacy"), {recursive:true});
+  await fs.writeFile(path.join(root,"dist/privacy/index.html"), privacy);
   if (process.argv.includes("--pages")) {
     const pagesDirectory = path.join(root, "docs");
     await fs.mkdir(pagesDirectory, { recursive: true });
     await fs.writeFile(path.join(pagesDirectory, "index.html"), html);
     await fs.writeFile(path.join(pagesDirectory, ".nojekyll"), "");
+    await fs.mkdir(path.join(pagesDirectory, "privacy"), {recursive:true});
+    await fs.writeFile(path.join(pagesDirectory, "privacy/index.html"), privacy);
   }
   console.log(`Built ${files.length} React/TypeScript modules, ${candidates.size} CSS candidates; ${(Buffer.byteLength(html)/1024).toFixed(0)} KB content-first standalone HTML; prerendered with ${renderer}.`);
   return html;

@@ -20,6 +20,10 @@ npm run build:pages
 
 The build prerenders the page and embeds its font, styles and script in `docs/index.html`. GitHub Pages serves `main /docs`; preserve `docs/CNAME` for intosquare.app. `dist/IntoSquare.html` is the standalone output. Preview uses port 4173 unless PORT is set. No analytics or external font requests are included.
 
+## Privacy policy
+
+The public privacy notice is available at https://intosquare.app/privacy/. Edit `src/privacy.html` and run `npm run build:pages` to regenerate `docs/privacy/index.html`. The footer and launch form link to this page. It is a standalone document that remains readable without JavaScript. The notice covers the website, Figma plugin, Chrome extension and account API; keep it aligned with shipped functionality and Chrome Web Store disclosures.
+
 ## Signup flow
 
 The website POSTs to our Google Apps Script web app, configured in `waitlist.config.json` (or overridden by `INTOSQUARE_WAITLIST_ENDPOINT` at build time). This is a public endpoint, not a secret key.
