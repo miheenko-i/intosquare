@@ -1,4 +1,2 @@
-// Launch pricing from the September 2026 IntoSquare research.
-export const LAUNCH = { month: "October", year: 2026, monthly: 15, annual: 132, freeTransfers: 5, freeMonthly: false } as const;
-export const annualMonthly = LAUNCH.annual / 12;
-export const annualSavings = Math.round((1 - LAUNCH.annual / (LAUNCH.monthly * 12)) * 100);
+export const LAUNCH = { month: "October", year: 2026, monthly: 15, semiannual: 68, freeTransfers: 5, freeMonthly: false } as const;
+export const semiannualSavings = Math.round((1 - LAUNCH.semiannual / (LAUNCH.monthly * 6)) * 100);
