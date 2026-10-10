@@ -10,7 +10,8 @@ export function serve(port = Number(process.env.PORT || 4173)) {
       const pathname = decodeURIComponent(new URL(request.url || "/", "http://localhost").pathname);
       let file = pathname === "/" || pathname === "/account" ? path.join(root,"index.html") : path.resolve(root, "."+pathname);
       if(file !== root && !file.startsWith(root+path.sep)){response.writeHead(403);response.end("Forbidden");return;}
-      if(pathname === "/privacy" || pathname === "/privacy/") file=path.join(root,"privacy/index.html");
+      const legalRoute = /^\/(privacy|terms|refunds)\/?$/.exec(pathname);
+      if(legalRoute) file=path.join(root,legalRoute[1],"index.html");
       let contents;
       try {contents=await fs.readFile(file);} catch {file=path.join(root,"index.html");contents=await fs.readFile(file);}
       response.writeHead(200, {"Content-Type": file.endsWith(".css") ? "text/css; charset=utf-8" : "text/html; charset=utf-8", "Cache-Control":"no-store"});
