@@ -4,7 +4,7 @@ Public website: https://intosquare.app/
 
 A React prelaunch landing page for the IntoSquare Figma plugin and Chrome extension. The visual direction takes cues from Public.com: a clear oversized introduction, product-led illustrations, generous whitespace, quiet cards and a short story. A header toggle switches between light and dark themes and remembers the choice locally. The initial preference follows the visitor’s system. The website interface is monochrome: black, neutral grays and white. Sample designs inside the illustration cards use color. All illustrations are original HTML/CSS; the logo is the vector used in the plugins. TikTok Sans and its OFL license are bundled locally. Headings use -0.03em tracking. The sticky header uses a translucent blurred backdrop. Lenis is bundled locally for smooth wheel scrolling and anchor navigation; touch scrolling remains native and reduced-motion preferences disable the smoothing. Illustration motion pauses outside the viewport; scroll reveals and all animations respect reduced-motion preferences.
 
-Launch: October 2026. Free includes 3 successful transfers total to one Squarespace site. Pro is $15/month or $144/year, with unlimited transfers/sites and Site Styles. These are planned launch prices; this page does not take payments.
+Free includes 5 successful imports total to one Squarespace site. Pro is $15 per month or $68 every six months, with unlimited imports/sites and Site Styles. Get Pro opens the shared IntoSquare account page and hosted FastSpring checkout. Live sales require FastSpring store activation.
 
 ## Develop and publish
 
