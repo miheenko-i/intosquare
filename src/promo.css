@@ -160,6 +160,7 @@ button,.button,.mini-copy,.sample-button,.style-result-button{font-weight:500}
 .privacy-details.animated-details summary::-webkit-details-marker{display:none}
 .privacy-details.animated-details summary::before{content:'›';display:inline-block;margin-right:7px;transform:rotate(0);transition:transform .38s cubic-bezier(.22,1,.36,1)}
 .privacy-details.animated-details[data-expanded=true] summary::before{transform:rotate(90deg)}
+.footer-bottom{flex-wrap:wrap;align-items:baseline}.footer-legal{display:flex;flex-wrap:wrap;gap:12px 18px}.footer-legal a{white-space:nowrap}.footer-legal a:hover{text-decoration:underline;text-underline-offset:3px}
 .device-switch.sliding-switch button{position:relative;z-index:1;transition:color .3s ease}
 .device-switch.sliding-switch[data-ready=true] button[aria-pressed=true],[data-theme=dark] .device-switch.sliding-switch[data-ready=true] button[aria-pressed=true]{background:transparent;box-shadow:none;color:var(--ink)}
 .site-header nav a,.footer-main a,.text-button,.faq-list summary{transition:color .25s ease,opacity .25s ease}
