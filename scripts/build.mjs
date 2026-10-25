@@ -125,7 +125,7 @@ require("src/main.tsx");})();`;
       renderer = "browser snapshot";
     } finally { await fs.rm(temp,{recursive:true,force:true}); }
   }
-  if (!markup?.includes('id="headline"') || !markup.includes('id="signup-email"') || !markup.includes('id="how-it-works"')) {
+  if (!markup?.includes('id="headline"') || !markup.includes('id="plugins"') || !markup.includes('id="how-it-works"')) {
     throw new Error("Refusing to export an empty or incomplete landing page.");
   }
   html = html.replace("<!-- APP_MARKUP -->", () => markup);
