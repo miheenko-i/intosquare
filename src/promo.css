@@ -249,13 +249,21 @@ body::after{content:"";position:fixed;inset:-12px;z-index:100;pointer-events:non
 /* Released product: install both companions and buy prepaid Pro. */
 .plugin-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .hero-bottom .plugin-actions{justify-content:flex-end;flex-shrink:0}
-.install-plugins .plugin-actions{justify-content:center;margin:28px auto}
-.install-steps{max-width:580px;margin:28px auto;padding-left:24px;text-align:left;color:var(--muted);font-size:15px;line-height:1.6}
-.install-steps li+li{margin-top:12px}
-.install-plugins .install-account{max-width:580px;font-size:14px}
 .install-account a,.pricing-note a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:1100px){.hero-bottom{flex-wrap:wrap}.hero-bottom .plugin-actions{justify-content:flex-start;flex-shrink:1}}
-@media(max-width:560px){.plugin-actions{width:100%}.plugin-actions .button{width:100%}.install-plugins{padding-inline:24px}}
+@media(max-width:560px){.plugin-actions{width:100%}.plugin-actions .button{width:100%}}
 
 .site-header nav .mobile-pro-link{display:none}
 @media(max-width:700px){.site-header nav .mobile-pro-link{display:block}.hero-bottom .plugin-actions{margin-top:24px}.hero-bottom .plugin-actions .button{margin-top:0}}
+
+/* Installation and connection are one guided flow. */
+.plugin-logo{width:20px;height:20px;flex:none;display:block}
+.plugin-actions .button,.plugin-actions .button-face{gap:10px}
+.install-plugins{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;padding:64px;border:1px solid var(--line);border-radius:16px;background:var(--surface);margin-bottom:100px;text-align:left}
+.install-intro{min-width:0}.install-intro .eyebrow{margin-bottom:18px}.install-intro h2{font-size:clamp(2.25rem,1.4rem + 3vw,3.625rem);margin:0 0 24px}.install-intro>p:not(.eyebrow){font-size:16px;line-height:1.65;max-width:370px}
+.install-plugins .plugin-actions{justify-content:flex-start;gap:12px;margin:28px 0 26px}.install-plugins .plugin-actions .button{padding-inline:20px;font-size:14px}
+.install-intro .install-account{border-top:1px solid var(--line);padding-top:24px;font-size:14px}.install-account a{display:inline-block;margin-top:5px;color:var(--ink)}
+.install-guide{border-left:1px solid var(--line);padding-left:48px;min-width:0}.install-guide>h3{font-size:18px;font-weight:500;letter-spacing:-.01em;margin:0 0 28px}
+.install-steps{margin:0;padding:0;list-style:none;display:grid;gap:26px}.install-steps li{display:flex;gap:18px}.install-number{font-size:12px;color:var(--muted);line-height:24px;flex:none}.install-steps h4{font-size:18px;font-weight:500;letter-spacing:-.02em;margin:0 0 8px;line-height:1.3}.install-steps p{font-size:14px;line-height:1.65}.install-steps strong{font-weight:500;color:var(--ink)}
+@media(max-width:1000px){.install-plugins{padding:40px;gap:36px}.install-guide{padding-left:32px}.install-plugins .plugin-actions{flex-direction:column;align-items:stretch}}
+@media(max-width:700px){.install-plugins{grid-template-columns:1fr;padding:32px 24px;gap:32px;margin-bottom:58px}.install-intro h2 br{display:none}.install-intro>p:not(.eyebrow){max-width:none}.install-plugins .plugin-actions{flex-direction:row}.install-guide{border-left:0;border-top:1px solid var(--line);padding:30px 0 0}.install-guide>h3{margin-bottom:26px}.install-steps{gap:24px}}
