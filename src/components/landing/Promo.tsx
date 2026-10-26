@@ -54,7 +54,12 @@ const questions=[
 ];
 function Pricing() {
  return <section className="section pricing" id="pricing">
-  <SectionIntro title="Choose your Pro access." body="One payment. No auto-renewal."/>
+  <div className="section-intro pricing-free">
+   <h2>Start free. Go Pro anytime.</h2>
+   <p>{LAUNCH.freeTransfers} free imports · 1 site</p>
+   <a href="#plugins" className="button button-outline"><ButtonContent>Try for free <Arrow/></ButtonContent></a>
+  </div>
+  <p className="pricing-terms">Pro access. One payment. No auto-renewal.</p>
   <div className="price-grid">
    {PRO_PLANS.map(plan=><article key={plan.months} className={`price-card pro-plan reveal${plan.months===12?' price-pro':''}`}>
     <div className="plan-top"><div className="plan-heading"><h3>{plan.label}</h3>{plan.months>1&&<span className="plan-saving">Save ${LAUNCH.monthly*plan.months-plan.price}</span>}</div><span>{plan.description}</span></div>
@@ -64,8 +69,7 @@ function Pricing() {
    </article>)}
   </div>
   <ul className="pro-included" aria-label="Included in every Pro plan"><li>Unlimited imports</li><li>Unlimited sites</li><li>Fonts & colors</li></ul>
-  <p className="pricing-free">Try {LAUNCH.freeTransfers} free imports on one site. <a href="#plugins">Get started <Arrow/></a></p>
-  <p className="pricing-note">Savings compared with $15 one-month passes. Prices in USD; taxes shown at checkout.<br/>Pro starts when you activate your key. <a href={PRODUCT_LINKS.account}>Activate a key <Arrow/></a></p>
+  <p className="pricing-note">Pro starts when you activate your key. <a href={PRODUCT_LINKS.account}>Activate a key <Arrow/></a></p>
  </section>;
 }
 export function Promo() {
