@@ -56,8 +56,8 @@ function Pricing() {
  return <section className="section pricing" id="pricing">
   <div className="section-intro pricing-free">
    <h2>Start free. Go Pro anytime.</h2>
-   <p>{LAUNCH.freeTransfers} free imports · 1 site</p>
    <a href="#plugins" className="button button-outline"><ButtonContent>Try for free <Arrow/></ButtonContent></a>
+   <p>{LAUNCH.freeTransfers} free imports · 1 site</p>
   </div>
   <p className="pricing-terms">Pro access. One payment. No auto-renewal.</p>
   <div className="price-grid">

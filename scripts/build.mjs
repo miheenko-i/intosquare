@@ -130,6 +130,7 @@ require("src/main.tsx");})();`;
   }
   html = html.replace("<!-- APP_MARKUP -->", () => markup);
   await fs.mkdir(path.join(root,"dist"),{recursive:true});
+  await fs.cp(path.join(root,"public"), path.join(root,"dist"), {recursive:true});
   await fs.writeFile(path.join(root,"dist/index.html"),html);
   await fs.writeFile(path.join(root,"dist/app.css"),css);
   await fs.writeFile(path.join(root,"dist/IntoSquare.html"),html);
@@ -146,6 +147,7 @@ require("src/main.tsx");})();`;
   if (process.argv.includes("--pages")) {
     const pagesDirectory = path.join(root, "docs");
     await fs.mkdir(pagesDirectory, { recursive: true });
+    await fs.cp(path.join(root,"public"), pagesDirectory, {recursive:true});
     await fs.writeFile(path.join(pagesDirectory, "index.html"), html);
     await fs.writeFile(path.join(pagesDirectory, ".nojekyll"), "");
     for (const page of legalPages) {
