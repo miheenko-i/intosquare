@@ -2,7 +2,7 @@ export const LAUNCH = { month: "October", year: 2026, monthly: 15, semiannual: 6
 export const semiannualSavings = Math.round((1 - LAUNCH.semiannual / (LAUNCH.monthly * 6)) * 100);
 
 export const PRODUCT_LINKS = {
- gumroad: "https://omtb.gumroad.com/l/intosquare",
+ gumroad: "https://omtb.gumroad.com/l/intosquare?section=plans",
  chrome: "https://chromewebstore.google.com/detail/dcdejadddiaffdpckhnmmmbglepcljmi",
  figma: "https://www.figma.com/community/plugin/1688972983061987655/intosquare-figma-to-squarespace",
  account: "https://api.intosquare.app/account",
