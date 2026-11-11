@@ -4,9 +4,9 @@ export function CopilotAnnouncement() {
       <div className="copilot-announcement-copy">
         <div className="copilot-announcement-meta"><span>Up next / AI Copilot + MCP</span><span>Coming soon · Pro only</span></div>
         <h2 id="copilot-title">Start with a prompt.<br/>Or a picture.</h2>
-        <p>Describe a section or drop in a screenshot. Copilot turns your idea into native Squarespace blocks — with desktop and mobile layouts you can keep editing.</p>
+        <p>Describe a section or add a screenshot for inspiration. Bring your own photos. Copilot creates editable Squarespace blocks with desktop and mobile layouts, using your site’s text styles. Preview the design, then add it to your page.</p>
         <ol className="copilot-announcement-steps"><li>Describe or upload</li><li>Preview your design</li><li>Add to your page</li></ol>
-        <div className="copilot-announcement-mcp"><h3>Your AI assistant, in the loop.</h3><p>The MCP server gives compatible AI assistants design context and transfer checks, so they can help you plan the next step.</p></div>
+        <div className="copilot-announcement-mcp"><h3>Plan your transfer with MCP.</h3><p>Connect a compatible AI assistant to inspect your Figma export, flag transfer issues and prepare a plan. MCP is read-only; you add designs through Copilot.</p></div>
         <div className="copilot-announcement-footer"><a href="#pricing">Explore Pro <span aria-hidden="true">↗</span></a><span>In development. Planned for Pro subscribers.</span></div>
       </div>
       <figure className="copilot-announcement-visual" aria-label="Illustration: a screenshot reference becomes an editable Squarespace section">
