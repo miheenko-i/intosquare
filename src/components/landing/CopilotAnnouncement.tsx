@@ -12,7 +12,6 @@ export function CopilotAnnouncement() {
       <figure className="copilot-announcement-visual" aria-label="Illustrative preview of an editable Squarespace section">
         <div className="copilot-prompt"><span aria-hidden="true">↳</span> Your prompt or screenshot</div>
         <div className="copilot-result"><div className="copilot-result-toolbar"><span>Editable in Squarespace</span><span aria-hidden="true">↗</span></div><div className="copilot-result-layout"><div><span className="copilot-block-label">TEXT</span><b>Space to<br/>make it yours.</b><span className="copilot-demo-button">Explore ↗</span></div><div className="copilot-demo-image"><span className="copilot-block-label">IMAGE</span><i/></div></div></div>
-        <figcaption>Desktop + Mobile · Illustrative preview</figcaption>
       </figure>
     </div>
   </article>;
