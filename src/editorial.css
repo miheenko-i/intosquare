@@ -126,3 +126,6 @@ html{scroll-padding-top:calc(var(--header-height,88px) + 16px);scroll-padding-bo
 @media(max-width:700px){.style-demo{height:auto;display:grid;gap:16px;margin:24px;padding-bottom:24px}.style-panel,.style-result{width:100%;position:static;animation:none}.style-result{padding:24px}.style-demo>.text-button{position:static;justify-self:start;min-height:44px}.style-result b{font-size:2rem}.style-panel{padding:16px}.style-row{font-size:.7rem}.style-status{font-size:.65rem}}
 
 @media(max-width:900px){.site-footer{padding-inline:16px}}
+
+.site-footer{padding-inline:0}
+@media(max-width:900px){.site-footer{padding-inline:0}}
