@@ -233,18 +233,16 @@ button,.button,.mini-copy,.sample-button,.style-result-button{font-weight:500}
 /* One entrance per page load, staggered by object; content never depends on JS. */
 .hero h1>span{display:inline-block}
 .hero h1>span.hero-heading-primary{color:var(--ink)}
-.hero :is(.launch-pill,h1>span,.hero-bottom>p,.hero-bottom>.button,.intro-video,.hero-proof>span){animation:hero-arrive .8s cubic-bezier(.22,1,.36,1) backwards;animation-delay:var(--hero-delay,0s)}
-.hero .launch-pill{--hero-delay:.06s}
-.hero h1>.hero-heading-primary{--hero-delay:.17s}
-.hero h1>span:last-child{--hero-delay:.29s}
-.hero .hero-bottom>p{--hero-delay:.41s}
-.hero .hero-bottom>.button{--hero-delay:.52s}
-.hero .intro-video{--hero-delay:.65s}
-.hero .hero-proof>span{display:inline-block;--hero-delay:.8s}
-.hero .hero-proof>span:nth-child(2){--hero-delay:.89s}
-.hero .hero-proof>span:nth-child(3){--hero-delay:.98s}
-.hero:focus-within :is(.launch-pill,h1>span,.hero-bottom>p,.hero-bottom>.button,.intro-video,.hero-proof>span){animation:none}
-@keyframes hero-arrive{from{opacity:0;transform:translateY(22px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+.hero :is(.hero-title,.hero-aside>p,.hero-aside>.plugin-actions,.film,.hero-proof>span){animation:hero-arrive 1s cubic-bezier(.22,1,.36,1) backwards;animation-delay:var(--hero-delay,.12s)}
+.hero .hero-title{--hero-delay:.12s}
+.hero .hero-aside>p{--hero-delay:.28s}
+.hero .hero-aside>.plugin-actions{--hero-delay:.4s}
+.hero .film{--hero-delay:.52s}
+.hero .hero-proof>span{display:inline-block;--hero-delay:.7s}
+.hero .hero-proof>span:nth-child(2){--hero-delay:.78s}
+.hero .hero-proof>span:nth-child(3){--hero-delay:.86s}
+.hero:focus-within :is(.hero-title,.hero-aside>p,.hero-aside>.plugin-actions,.film,.hero-proof>span){animation:none}
+@keyframes hero-arrive{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
 /* Text links share a quiet underline reveal and directional arrow motion. */
 :is(.site-header nav a,.faq p a,.footer-main a:not(.brand),.footer-bottom a){position:relative;text-decoration:none;transition:color .3s ease,opacity .3s ease}
