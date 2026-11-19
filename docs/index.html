@@ -437,6 +437,9 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 @media(max-width:1000px){.transfer-preview,.appearance-demo{padding:1.5rem}.transfer-actions{flex-wrap:wrap}.transfer-actions .button{flex-basis:100%}.transfer-actions>span{display:none}.transfer-preview-layout{padding:20px;gap:16px}.transfer-image{min-height:150px}}
 @media(max-width:700px){.more-features+.copilot-announcement{margin-top:2rem}.appearance-preview>strong{font-size:1.75rem}.transfer-text strong{font-size:1.5rem}.transfer-preview-layout{padding:20px 16px;gap:12px}.transfer-image i{height:96px}}
 @media(prefers-reduced-motion:reduce){.is-imported .transfer-preview-layout{animation:none}.transfer-preview *,.appearance-demo *{transition:none!important}}
+
+/* Open editorial row: do not inherit the legacy dark card frame. */
+[data-theme=dark] .feature-wide{border:0;border-bottom:1px solid var(--line);box-shadow:none}
 </style>
 </head>
 <body>
