@@ -9,8 +9,8 @@ export function CopilotAnnouncement() {
         <ol className="copilot-announcement-steps"><li>Describe or upload</li><li>Preview your design</li><li>Add to your page</li></ol>
         <a className="button button-outline copilot-announcement-cta" href="#pricing"><ButtonContent>Explore Pro <span aria-hidden="true">↗</span></ButtonContent></a>
       </div>
-      <figure className="copilot-announcement-visual" aria-label="Illustrative preview of an editable Squarespace section">
-        <div className="copilot-prompt"><span aria-hidden="true">↳</span> Your prompt or screenshot</div>
+      <figure className="copilot-announcement-visual smart-transfer motion-scene" aria-label="Illustrative preview of an editable Squarespace section">
+        <div className="smart-source" aria-hidden="true"><div className="smart-source-bar">Reference image <span>PNG</span></div><svg viewBox="0 0 420 220" role="img" aria-label="Reference layout"><rect width="420" height="220" fill="#e3e3df"/><text x="24" y="58" fontSize="28" fontFamily="Arial,sans-serif" fill="#222">Space to</text><text x="24" y="90" fontSize="28" fontFamily="Arial,sans-serif" fill="#222">make it yours.</text><rect x="24" y="140" width="84" height="28" fill="#222"/><text x="35" y="158" fontSize="10" fill="#fff" fontFamily="Arial,sans-serif">Explore ↗</text><rect x="238" y="20" width="162" height="180" fill="#bcbcb6"/><path d="M268 170V95a51 51 0 0 1 102 0v75Z" fill="#deded7"/></svg><span className="smart-scan"/></div><div className="copilot-prompt"><span aria-hidden="true">↳</span> Your prompt or screenshot</div>
         <div className="copilot-result"><div className="copilot-result-toolbar"><span>Editable in Squarespace</span><span aria-hidden="true">↗</span></div><div className="copilot-result-layout"><div><span className="copilot-block-label">TEXT</span><b>Space to<br/>make it yours.</b><span className="copilot-demo-button">Explore ↗</span></div><div className="copilot-demo-image"><span className="copilot-block-label">IMAGE</span><i/></div></div></div>
       </figure>
     </div>

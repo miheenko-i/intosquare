@@ -36,3 +36,19 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 .button{font-weight:450;box-shadow:none;border-color:var(--line)}
 
 .copilot-announcement-cta.button{background:var(--button-bg);color:var(--button-fg);border-color:var(--line)}
+
+/* Four plans share one row, then two pairs, then a single column. */
+.price-grid{grid-template-columns:repeat(4,minmax(0,1fr));max-width:none;gap:1rem}.price-card{padding:1.5rem;display:flex;flex-direction:column}.price-card .price-detail{min-height:3rem}.price-card .button{margin-top:auto}.price-card .plan-heading{flex-wrap:wrap;gap:.5rem}.price-card .price{margin-top:2rem}.price-card .price-detail{margin-bottom:1.5rem}.pricing-free h2{margin-bottom:0}
+.smart-transfer{position:relative;padding-top:5rem;isolation:isolate}.smart-source{position:absolute;top:0;left:5%;width:90%;border:1px solid #bdbdbd;border-radius:6px;background:#fff;overflow:hidden;box-shadow:0 12px 28px #0002;z-index:3;animation:reference-depth 9s cubic-bezier(.22,1,.36,1) infinite}.smart-source-bar{padding:10px 14px;display:flex;justify-content:space-between;color:#444;font-size:10px;background:#fff}.smart-source svg{display:block;width:100%;height:auto}.smart-scan{position:absolute;inset:34px 0 auto;height:2px;background:#fff;box-shadow:0 0 0 1px #333,0 -12px 24px #fff9;animation:reference-scan 9s linear infinite}.smart-transfer .copilot-prompt{position:relative;z-index:4;animation:prompt-reveal 9s ease infinite}.smart-transfer .copilot-result{position:relative;z-index:2;animation:builder-front 9s cubic-bezier(.22,1,.36,1) infinite}.smart-transfer .copilot-result-layout>div:first-child{animation:block-draw 9s ease infinite}.smart-transfer .copilot-demo-button{animation:button-draw 9s ease infinite}.smart-transfer .copilot-demo-image{animation:image-draw 9s ease infinite}
+@keyframes reference-depth{0%,27%{transform:translateY(38px) scale(1);opacity:1;z-index:3}40%,88%{transform:translateY(-12px) scale(.88);opacity:.45;z-index:1}100%{transform:translateY(38px) scale(1);opacity:1;z-index:3}}
+@keyframes reference-scan{0%,5%{top:34px;opacity:0}8%{opacity:1}27%{top:100%;opacity:1}30%,100%{top:100%;opacity:0}}
+@keyframes builder-front{0%,27%{transform:translateY(25px) scale(.94);opacity:.15}45%,88%{transform:none;opacity:1}100%{transform:translateY(25px) scale(.94);opacity:.15}}
+@keyframes prompt-reveal{0%,30%,100%{opacity:0}42%,88%{opacity:1}}
+@keyframes block-draw{0%,39%,100%{opacity:0;clip-path:inset(0 100% 0 0)}52%,88%{opacity:1;clip-path:inset(-12px)}}
+@keyframes button-draw{0%,51%,100%{opacity:0;transform:translateY(8px)}63%,88%{opacity:1;transform:none}}
+@keyframes image-draw{0%,46%,100%{opacity:0;clip-path:inset(0 0 100% 0)}61%,88%{opacity:1;clip-path:inset(-12px)}}
+@media(max-width:1100px){.price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.price-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.smart-transfer *{animation:none!important}.smart-source{transform:translateY(-12px) scale(.88);opacity:.35;z-index:1}.smart-scan{display:none}.smart-transfer .copilot-result{opacity:1;transform:none}}
+
+.smart-transfer{filter:grayscale(1)}
