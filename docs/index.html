@@ -452,6 +452,44 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 [data-theme=dark] .film-status{background:#353535;color:#eee}
 [data-theme=dark] .skip-link{background:#eee;color:#111}
 .smart-transfer .copilot-block-label{background:#4364a7}
+
+/* Mobile review: shared spacing, reachable controls and clear fixed UI. */
+:root{--feature-gap:2rem}
+.feature-pair{gap:var(--feature-gap)}.feature-pair+.feature-pair,.more-features+.copilot-announcement{margin-top:var(--feature-gap)}
+html{scroll-padding-top:calc(var(--header-height,88px) + 16px);scroll-padding-bottom:calc(var(--promo-height,60px) + 16px)}
+.sale-bar{padding-bottom:env(safe-area-inset-bottom,0px);padding-inline:env(safe-area-inset-left,0px) env(safe-area-inset-right,0px)}
+.site-footer{padding-bottom:calc(var(--promo-height,60px) + 2rem)}
+[data-theme=dark] .price-card.price-pro,[data-theme=dark] .closing-panel,[data-theme=dark] .site-footer{background:#1c1c1c}
+@media(max-width:1000px){:root{--feature-gap:1rem}}
+@media(max-width:900px){
+ .site-header,.site-header.is-compact{gap:8px;padding:12px 16px;min-height:76px}
+ .site-header .brand{font-size:19px;gap:8px}.site-header .brand svg{width:23px;height:28px}
+ .site-header .header-cta{display:none}.menu-toggle{display:block;margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--ink);padding:10px 12px;border-radius:30px;font-size:12px;min-height:44px;flex:none}
+ .header-actions{gap:4px}.account-link{width:44px;min-width:44px;justify-content:center}.account-link svg{display:block}.account-link span{display:none}.theme-toggle{width:44px;height:44px;flex:none}
+ .site-header nav{display:none;position:absolute;top:calc(100% + 4px);left:16px;right:16px;margin:0;padding:8px;border:1px solid var(--line);border-radius:12px;background:#fff;color:#111;box-shadow:0 12px 30px #0001;max-height:calc(100dvh - var(--header-height,76px) - var(--promo-height,60px) - 16px);overflow-y:auto;overscroll-behavior:contain}
+ .site-header nav.open{display:flex;flex-direction:column;gap:0}.site-header nav a{display:flex;align-items:center;min-height:44px;padding:12px 14px;font-size:15px}.site-header nav .mobile-pro-link{display:flex}
+ .site-header nav a::after{left:14px;right:14px;bottom:6px}
+}
+@media(max-width:360px){.site-header,.site-header.is-compact{gap:4px}.site-header .brand{font-size:17px;gap:6px}.site-header .brand svg{width:20px;height:26px}.header-actions{gap:0}.menu-toggle{padding-inline:8px}}
+@media(pointer:coarse){
+ .device-switch button,.appearance-demo .device-switch button,.section-choice,.mini-copy,.text-button{min-height:44px;min-width:44px}
+ .edit-controls{flex-wrap:wrap;gap:8px}.edit-controls button{width:44px;height:44px;border:10px solid #fff}.edit-controls>div{gap:6px}
+ [data-theme=dark] .edit-controls button{border-color:#222}
+ .footer-main>a:not(.brand),.footer-legal a,.footer-bottom>a{display:inline-flex;align-items:center;min-height:44px}
+}
+@media(max-width:700px){
+ .feature-card .feature-copy{padding:24px 24px 0}.feature-card .feature-copy p{font-size:1rem}
+ .closing-panel .install-plugins{padding-block:3rem}.section{padding-block:3rem}
+ .style-demo{margin-top:24px}.responsive-demo{min-height:0;padding-bottom:8px}
+ .film-poster{min-height:0;gap:1.5rem;padding:1rem}.film-caption{flex-wrap:wrap}
+ .hero-proof{font-size:.75rem;line-height:1.5}.hero-proof span{flex:1 1 120px}
+ .appearance-buttons{padding:16px;gap:8px}.appearance-preview>strong{padding:20px 16px 0}.appearance-line{margin-inline:16px}.appearance-bottom{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){.site-header nav{scroll-behavior:auto}}
+
+@media(max-width:900px){.site-header.is-compact .theme-toggle{width:44px;height:44px}.site-header.is-compact nav{top:calc(100% + 4px)}.site-header.is-compact .menu-toggle{min-height:44px}}
+@media(pointer:coarse){.copy-animation .mini-copy{min-height:44px}}
+@media(max-width:700px){.style-demo{height:auto;display:grid;gap:16px;margin:24px;padding-bottom:24px}.style-panel,.style-result{width:100%;position:static;animation:none}.style-result{padding:24px}.style-demo>.text-button{position:static;justify-self:start;min-height:44px}.style-result b{font-size:2rem}.style-panel{padding:16px}.style-row{font-size:.7rem}.style-status{font-size:.65rem}}
 </style>
 </head>
 <body>
@@ -621,6 +659,37 @@ function Promo() {
     const [menu, setMenu] = (0, react_1.useState)(false);
     const [compact, setCompact] = (0, react_1.useState)(false);
     (0, react_1.useEffect)(() => {
+        const header = document.querySelector('.site-header');
+        const promo = document.querySelector('.sale-bar');
+        const measure = () => {
+            document.documentElement.style.setProperty('--header-height', `${header?.getBoundingClientRect().height || 76}px`);
+            document.documentElement.style.setProperty('--promo-height', `${promo?.getBoundingClientRect().height || 0}px`);
+        };
+        measure();
+        const observer = new ResizeObserver(measure);
+        if (header)
+            observer.observe(header);
+        if (promo)
+            observer.observe(promo);
+        return () => observer.disconnect();
+    }, []);
+    (0, react_1.useEffect)(() => {
+        if (!menu)
+            return;
+        const dismiss = (event) => { if (!(event.target instanceof Element) || !event.target.closest('.site-header'))
+            setMenu(false); };
+        const key = (event) => { if (event.key === 'Escape') {
+            setMenu(false);
+            document.querySelector('.menu-toggle')?.focus();
+        } };
+        const resized = () => { if (window.innerWidth > 900)
+            setMenu(false); };
+        document.addEventListener('pointerdown', dismiss);
+        document.addEventListener('keydown', key);
+        window.addEventListener('resize', resized);
+        return () => { document.removeEventListener('pointerdown', dismiss); document.removeEventListener('keydown', key); window.removeEventListener('resize', resized); };
+    }, [menu]);
+    (0, react_1.useEffect)(() => {
         const update = () => setCompact(previous => window.scrollY > 80 ? true : window.scrollY < 24 ? false : previous);
         update();
         window.addEventListener("scroll", update, { passive: true });
@@ -628,17 +697,22 @@ function Promo() {
     }, []);
     (0, react_1.useEffect)(() => {
         const elements = document.querySelectorAll(".reveal");
-        if (!window.IntersectionObserver || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+        if (!window.IntersectionObserver)
             return;
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
         const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
         } }), { threshold: .08 });
-        elements.forEach(el => { el.classList.add("will-reveal"); observer.observe(el); });
+        elements.forEach(el => { if (!reduced.matches)
+            el.classList.add("will-reveal"); observer.observe(el); });
+        const showForReduced = () => { if (reduced.matches)
+            elements.forEach(el => el.classList.add("is-visible")); };
+        reduced.addEventListener("change", showForReduced);
         const scenes = document.querySelectorAll(".motion-scene");
         const motionObserver = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle("is-in-view", entry.isIntersecting)), { threshold: 0 });
         scenes.forEach(scene => motionObserver.observe(scene));
-        return () => { observer.disconnect(); motionObserver.disconnect(); };
+        return () => { observer.disconnect(); motionObserver.disconnect(); reduced.removeEventListener("change", showForReduced); };
     }, []);
     return (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("a", { className: "skip-link", href: "#main", children: "Skip to content" }), (0, jsx_runtime_1.jsx)(SaleBar_1.SaleBar, {}), (0, jsx_runtime_1.jsxs)("header", { className: `site-header${compact ? " is-compact" : ""}`, id: "top", children: [(0, jsx_runtime_1.jsx)(Brand, {}), (0, jsx_runtime_1.jsx)("button", { className: "menu-toggle", "aria-label": menu ? "Close menu" : "Open menu", "aria-expanded": menu, "aria-controls": "main-nav", onClick: () => setMenu(!menu), children: menu ? "Close" : "Menu" }), (0, jsx_runtime_1.jsxs)("nav", { id: "main-nav", className: menu ? "open" : "", "aria-label": "Main navigation", onClick: () => setMenu(false), children: [(0, jsx_runtime_1.jsx)("a", { href: "#how-it-works", children: "How it works" }), (0, jsx_runtime_1.jsx)("a", { href: "#features", children: "What moves" }), (0, jsx_runtime_1.jsx)("a", { href: "#pricing", children: "Pricing" }), (0, jsx_runtime_1.jsx)("a", { href: "#faq", children: "FAQ" }), (0, jsx_runtime_1.jsx)("a", { href: "#plugins", children: "Install" }), (0, jsx_runtime_1.jsxs)("a", { className: "mobile-pro-link", href: "#pricing", children: ["Get Pro ", (0, jsx_runtime_1.jsx)(Arrow, {})] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "header-actions", children: [(0, jsx_runtime_1.jsxs)("a", { className: "account-link", href: launch_1.PRODUCT_LINKS.account, "aria-label": "Account", children: [(0, jsx_runtime_1.jsxs)("svg", { viewBox: "0 0 24 24", "aria-hidden": "true", children: [(0, jsx_runtime_1.jsx)("circle", { cx: "12", cy: "8", r: "4" }), (0, jsx_runtime_1.jsx)("path", { d: "M4 22v-3a8 8 0 0 1 16 0v3" })] }), (0, jsx_runtime_1.jsx)("span", { children: "Account" })] }), (0, jsx_runtime_1.jsx)(ThemeToggle_1.ThemeToggle, {}), (0, jsx_runtime_1.jsx)("a", { href: "#pricing", className: "button header-cta", children: (0, jsx_runtime_1.jsxs)(ButtonContent_1.ButtonContent, { children: ["Get Pro ", (0, jsx_runtime_1.jsx)(Arrow, {})] }) })] })] }), (0, jsx_runtime_1.jsxs)("main", { id: "main", tabIndex: -1, children: [(0, jsx_runtime_1.jsxs)("section", { className: "hero page-width", children: [(0, jsx_runtime_1.jsxs)("div", { className: "hero-grid", children: [(0, jsx_runtime_1.jsx)("div", { className: "hero-title", children: (0, jsx_runtime_1.jsxs)("h1", { id: "headline", children: ["Design in ", (0, jsx_runtime_1.jsxs)("span", { className: "platform-name", children: [(0, jsx_runtime_1.jsx)(PlatformLogo_1.PlatformLogo, { kind: "figma" }), "Figma."] }), (0, jsx_runtime_1.jsx)("br", {}), "Keep going in ", (0, jsx_runtime_1.jsxs)("span", { className: "platform-name", children: [(0, jsx_runtime_1.jsx)(PlatformLogo_1.PlatformLogo, { kind: "squarespace" }), "Squarespace."] })] }) }), (0, jsx_runtime_1.jsxs)("div", { className: "hero-aside", children: [(0, jsx_runtime_1.jsx)("p", { children: "Bring your layouts, images and styles into Squarespace. Keep editing them as native blocks." }), (0, jsx_runtime_1.jsx)(PluginLinks, {})] })] }), (0, jsx_runtime_1.jsx)(IntroVideo, {}), (0, jsx_runtime_1.jsxs)("div", { className: "hero-proof", children: [(0, jsx_runtime_1.jsx)("span", { children: "Native Squarespace blocks" }), (0, jsx_runtime_1.jsx)("span", { children: "Site Styles transfer" }), (0, jsx_runtime_1.jsx)("span", { children: "No code to write" })] })] }), (0, jsx_runtime_1.jsxs)("section", { className: "section page-width", id: "how-it-works", children: [(0, jsx_runtime_1.jsx)(SectionIntro, { title: "Design. Copy. Keep going." }), (0, jsx_runtime_1.jsx)(WorkflowDemo_1.WorkflowDemo, { logo: (0, jsx_runtime_1.jsx)(Mark, {}) })] }), (0, jsx_runtime_1.jsx)("section", { className: "section features-section", id: "features", children: (0, jsx_runtime_1.jsxs)("div", { className: "page-width", children: [(0, jsx_runtime_1.jsxs)("article", { className: "feature-wide reveal", children: [(0, jsx_runtime_1.jsxs)("div", { className: "feature-copy", children: [(0, jsx_runtime_1.jsxs)("h3", { children: ["The handoff is", (0, jsx_runtime_1.jsx)("br", {}), "just the beginning."] }), (0, jsx_runtime_1.jsx)("p", { children: "Text stays text. Images stay images. Buttons keep their Primary, Secondary or Tertiary role. Supported Auto Layout groups become Stacks. Change the details right inside Squarespace." }), (0, jsx_runtime_1.jsxs)("div", { className: "block-tags", children: [(0, jsx_runtime_1.jsx)("span", { children: "Text" }), (0, jsx_runtime_1.jsx)("span", { children: "Button" }), (0, jsx_runtime_1.jsx)("span", { children: "Image" }), (0, jsx_runtime_1.jsx)("span", { children: "Shape" }), (0, jsx_runtime_1.jsx)("span", { children: "Stack" }), (0, jsx_runtime_1.jsx)("span", { children: "Line" })] })] }), (0, jsx_runtime_1.jsx)(EditDemo, {})] }), (0, jsx_runtime_1.jsxs)("div", { className: "feature-pair", children: [(0, jsx_runtime_1.jsxs)("article", { className: "feature-card reveal", children: [(0, jsx_runtime_1.jsxs)("div", { className: "feature-copy", children: [(0, jsx_runtime_1.jsxs)("h3", { children: ["Big ideas.", (0, jsx_runtime_1.jsx)("br", {}), "Smaller screens."] }), (0, jsx_runtime_1.jsx)("p", { children: "Create a mobile arrangement from your desktop design, or bring your own mobile frame." })] }), (0, jsx_runtime_1.jsx)(MobileDemo, {})] }), (0, jsx_runtime_1.jsxs)("article", { className: "feature-card reveal", children: [(0, jsx_runtime_1.jsxs)("div", { className: "feature-copy", children: [(0, jsx_runtime_1.jsxs)("h3", { children: ["Bring the look", (0, jsx_runtime_1.jsx)("br", {}), "along, too."] }), (0, jsx_runtime_1.jsx)("p", { children: "Move your typography and five-color palette into real Squarespace Site Styles." })] }), (0, jsx_runtime_1.jsx)(StyleDemo, {})] })] }), (0, jsx_runtime_1.jsx)(MoreFeatures_1.MoreFeatures, {}), (0, jsx_runtime_1.jsx)(CopilotAnnouncement_1.CopilotAnnouncement, {})] }) }), (0, jsx_runtime_1.jsxs)("div", { className: "page-width", children: [(0, jsx_runtime_1.jsx)(Pricing, {}), (0, jsx_runtime_1.jsxs)("section", { className: "section faq reveal", id: "faq", children: [(0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("h2", { children: "Glad you asked." }), (0, jsx_runtime_1.jsxs)("p", { children: ["Something else on your mind?", (0, jsx_runtime_1.jsx)("br", {}), (0, jsx_runtime_1.jsxs)("a", { href: "mailto:hello@intosquare.app", children: ["Say hello ", (0, jsx_runtime_1.jsx)(Arrow, {})] })] })] }), (0, jsx_runtime_1.jsx)("div", { className: "faq-list", children: questions.map(([q, a]) => (0, jsx_runtime_1.jsx)(AnimatedDetails_1.AnimatedDetails, { title: q, icon: true, children: (0, jsx_runtime_1.jsx)("p", { children: a }) }, q)) })] })] }), (0, jsx_runtime_1.jsx)("div", { className: "closing-panel", children: (0, jsx_runtime_1.jsx)("div", { className: "page-width", children: (0, jsx_runtime_1.jsx)(InstallPlugins, {}) }) })] }), (0, jsx_runtime_1.jsxs)("footer", { className: "site-footer", children: [(0, jsx_runtime_1.jsxs)("div", { className: "footer-main", children: [(0, jsx_runtime_1.jsx)(Brand, {}), (0, jsx_runtime_1.jsx)("p", { children: "Less rebuilding. More creating." }), (0, jsx_runtime_1.jsxs)("a", { href: "mailto:hello@intosquare.app", children: ["Get support ", (0, jsx_runtime_1.jsx)(Arrow, {})] }), (0, jsx_runtime_1.jsxs)("a", { href: "https://www.instagram.com/intosquare.app/", target: "_blank", rel: "noopener noreferrer", children: ["Instagram ", (0, jsx_runtime_1.jsx)(Arrow, {})] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "footer-bottom", children: [(0, jsx_runtime_1.jsx)("span", { children: "\u00A9 2026 IntoSquare" }), (0, jsx_runtime_1.jsx)("span", { children: "Independently made. Not affiliated with Figma or Squarespace." }), (0, jsx_runtime_1.jsxs)("nav", { className: "footer-legal", "aria-label": "Legal information", children: [(0, jsx_runtime_1.jsx)("a", { href: "/terms/", children: "Terms of Service" }), (0, jsx_runtime_1.jsx)("a", { href: "/refunds/", children: "Refund Policy" }), (0, jsx_runtime_1.jsx)("a", { href: "/privacy/", children: "Privacy Policy" })] }), (0, jsx_runtime_1.jsxs)("a", { href: "#pricing", children: ["Get Pro ", (0, jsx_runtime_1.jsx)(Arrow, {})] })] })] })] });
 }

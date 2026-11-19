@@ -84,19 +84,42 @@ export function Promo() {
  const [menu,setMenu]=useState(false);
  const [compact,setCompact]=useState(false);
  useEffect(()=>{
+  const header=document.querySelector<HTMLElement>('.site-header');
+  const promo=document.querySelector<HTMLElement>('.sale-bar');
+  const measure=()=>{
+   document.documentElement.style.setProperty('--header-height', `${header?.getBoundingClientRect().height || 76}px`);
+   document.documentElement.style.setProperty('--promo-height', `${promo?.getBoundingClientRect().height || 0}px`);
+  };
+  measure();const observer=new ResizeObserver(measure);
+  if(header)observer.observe(header);if(promo)observer.observe(promo);
+  return ()=>observer.disconnect();
+ },[]);
+ useEffect(()=>{
+  if(!menu)return;
+  const dismiss=(event:PointerEvent)=>{if(!(event.target instanceof Element)||!event.target.closest('.site-header'))setMenu(false);};
+  const key=(event:KeyboardEvent)=>{if(event.key==='Escape'){setMenu(false);document.querySelector<HTMLButtonElement>('.menu-toggle')?.focus();}};
+  const resized=()=>{if(window.innerWidth>900)setMenu(false);};
+  document.addEventListener('pointerdown',dismiss);document.addEventListener('keydown',key);window.addEventListener('resize',resized);
+  return ()=>{document.removeEventListener('pointerdown',dismiss);document.removeEventListener('keydown',key);window.removeEventListener('resize',resized);};
+ },[menu]);
+
+ useEffect(()=>{
   const update=()=>setCompact(previous=>window.scrollY>80?true:window.scrollY<24?false:previous);
   update();window.addEventListener("scroll",update,{passive:true});
   return ()=>window.removeEventListener("scroll",update);
  },[]);
  useEffect(()=>{
   const elements=document.querySelectorAll(".reveal");
-  if (!window.IntersectionObserver || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!window.IntersectionObserver) return;
+  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target);}}),{threshold:.08});
-  elements.forEach(el=>{el.classList.add("will-reveal");observer.observe(el);});
+  elements.forEach(el=>{if(!reduced.matches)el.classList.add("will-reveal");observer.observe(el);});
+  const showForReduced=()=>{if(reduced.matches)elements.forEach(el=>el.classList.add("is-visible"));};
+  reduced.addEventListener("change",showForReduced);
   const scenes=document.querySelectorAll(".motion-scene");
   const motionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle("is-in-view",entry.isIntersecting)),{threshold:0});
   scenes.forEach(scene=>motionObserver.observe(scene));
-  return ()=>{observer.disconnect();motionObserver.disconnect();};
+  return ()=>{observer.disconnect();motionObserver.disconnect();reduced.removeEventListener("change",showForReduced);};
  },[]);
  return <><a className="skip-link" href="#main">Skip to content</a><SaleBar/><header className={`site-header${compact?" is-compact":""}`} id="top"><Brand/><button className="menu-toggle" aria-label={menu?"Close menu":"Open menu"} aria-expanded={menu} aria-controls="main-nav" onClick={()=>setMenu(!menu)}>{menu?"Close":"Menu"}</button><nav id="main-nav" className={menu?"open":""} aria-label="Main navigation" onClick={()=>setMenu(false)}><a href="#how-it-works">How it works</a><a href="#features">What moves</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#plugins">Install</a><a className="mobile-pro-link" href="#pricing">Get Pro <Arrow/></a></nav><div className="header-actions"><a className="account-link" href={PRODUCT_LINKS.account} aria-label="Account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 22v-3a8 8 0 0 1 16 0v3"/></svg><span>Account</span></a><ThemeToggle/><a href="#pricing" className="button header-cta"><ButtonContent>Get Pro <Arrow/></ButtonContent></a></div></header>
  <main id="main" tabIndex={-1}><section className="hero page-width"><div className="hero-grid"><div className="hero-title"><h1 id="headline">Design in <span className="platform-name"><PlatformLogo kind="figma"/>Figma.</span><br/>Keep going in <span className="platform-name"><PlatformLogo kind="squarespace"/>Squarespace.</span></h1></div><div className="hero-aside"><p>Bring your layouts, images and styles into Squarespace. Keep editing them as native blocks.</p><PluginLinks/></div></div><IntroVideo/><div className="hero-proof"><span>Native Squarespace blocks</span><span>Site Styles transfer</span><span>No code to write</span></div></section>
