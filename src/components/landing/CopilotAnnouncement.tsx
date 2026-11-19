@@ -2,11 +2,11 @@ export function CopilotAnnouncement() {
   return <article className="copilot-announcement" id="copilot" aria-labelledby="copilot-title">
     <div className="copilot-announcement-inner">
       <div className="copilot-announcement-copy">
-        <div className="copilot-announcement-meta"><span>AI Copilot + MCP</span><span>Coming soon · Pro only</span></div>
+        <div className="copilot-announcement-meta"><span>Smart mode</span><span>Beta · 5 free generations</span></div>
         <h3 id="copilot-title">A prompt or a picture.<br/>AI will do the job.</h3>
-        <p>Describe a section or add a screenshot for inspiration. Bring your own photos. Copilot creates native Squarespace blocks with desktop and mobile layouts, using your site’s text styles — ready for you to keep editing.</p>
+        <p>Describe a section, add a screenshot or use a Figma reference. Bring your own photos. Smart creates native Squarespace blocks with desktop and mobile layouts, using your site’s text styles — ready for you to keep editing.</p>
         <ol className="copilot-announcement-steps"><li>Describe or upload</li><li>Preview your design</li><li>Add to your page</li></ol>
-        <p className="copilot-announcement-mcp"><strong>Plan your transfer with MCP.</strong> Connect your AI assistant to inspect Figma exports, flag issues and prepare a transfer plan. MCP is read-only.</p>
+        <p className="copilot-announcement-mcp"><strong>MCP is coming next.</strong> The planned integration will let your AI assistant inspect Figma exports, flag issues and prepare a transfer plan. It will prepare plans without changing your site.</p>
         <a className="copilot-announcement-cta" href="#pricing">Explore Pro <span aria-hidden="true">↗</span></a>
       </div>
       <figure className="copilot-announcement-visual" aria-label="Illustrative preview of an editable Squarespace section">
