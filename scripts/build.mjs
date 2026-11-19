@@ -67,9 +67,10 @@ export async function build() {
   const font = await fs.readFile(path.join(sourceRoot,"assets/fonts/TikTokSans.ttf"));
   const lenisDirectory = path.dirname(require.resolve("lenis"));
   const lenisCss = await fs.readFile(path.join(lenisDirectory,"lenis.css"),"utf8");
-  const cssSource = lenisCss + "\n" + (await fs.readFile(path.join(sourceRoot,"promo.css"),"utf8")).replace("__TIKTOK_FONT__", "data:font/ttf;base64," + font.toString("base64"));
+  const cssSource = (await fs.readFile(path.join(sourceRoot,"editorial.css"),"utf8"));
+  const baseCss = lenisCss + "\n" + (await fs.readFile(path.join(sourceRoot,"promo.css"),"utf8")).replace("__TIKTOK_FONT__", "data:font/ttf;base64," + font.toString("base64"));
   const twDir = path.dirname(require.resolve("tailwindcss/package.json"));
-  const compiler = await tailwind.compile(cssSource, {
+  const compiler = await tailwind.compile(baseCss + "\n" + cssSource, {
     base: sourceRoot,
     loadStylesheet: async (id, base) => {
       const file = id === "tailwindcss" ? path.join(twDir,"index.css") : path.resolve(base, id);
