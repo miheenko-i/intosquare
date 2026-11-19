@@ -71,3 +71,18 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 @media(max-width:1000px){.transfer-preview,.appearance-demo{padding:1.5rem}.transfer-actions{flex-wrap:wrap}.transfer-actions .button{flex-basis:100%}.transfer-actions>span{display:none}.transfer-preview-layout{padding:20px;gap:16px}.transfer-image{min-height:150px}}
 @media(max-width:700px){.more-features+.copilot-announcement{margin-top:2rem}.appearance-preview>strong{font-size:1.75rem}.transfer-text strong{font-size:1.5rem}.transfer-preview-layout{padding:20px 16px;gap:12px}.transfer-image i{height:96px}}
 @media(prefers-reduced-motion:reduce){.is-imported .transfer-preview-layout{animation:none}.transfer-preview *,.appearance-demo *{transition:none!important}}
+
+/* Open editorial row: do not inherit the legacy dark card frame. */
+[data-theme=dark] .feature-wide{border:0;border-bottom:1px solid var(--line);box-shadow:none}
+
+/* Consistent gutters across the four feature cards and Smart. */
+.feature-pair{gap:4rem}.feature-pair+.feature-pair{margin-top:4rem}
+[data-theme=dark] .copilot-announcement-meta>span:last-child{color:#ddd;border-color:#777}
+[data-theme=dark] .price-card:not(.price-pro){background:transparent;box-shadow:none}
+.editor-workspace{display:grid;grid-template-columns:76px minmax(0,1fr) 68px;min-height:240px;background:#eee}.editor-workspace.editor-squarespace{grid-template-columns:1fr;background:#fff}.editor-layers,.editor-properties{display:flex;flex-direction:column;gap:12px;background:#fff;padding:12px 8px;font-size:8px;color:#444}.editor-layers{border-right:1px solid #ddd}.editor-properties{border-left:1px solid #ddd}.editor-canvas{min-width:0;padding:20px 10px;display:flex;flex-direction:column;justify-content:center}.editor-squarespace .editor-canvas{padding:10px 16px 20px}.editor-section-tools{display:flex;justify-content:space-between;font-size:7px;font-weight:500;margin:0 0 16px;color:#222}.editor-section-tools span{padding:5px;border:1px solid #ccc;border-radius:3px}.transfer-preview-bar{align-items:center;justify-content:flex-start;gap:12px;color:#333;background:#fff}.transfer-preview-bar .platform-logo{width:12px;height:16px}.editor-page-name{margin-left:auto}.editor-share{padding:5px 8px;background:#1769d2;color:#fff;border-radius:4px}.editor-save{background:#111;color:white;padding:5px 8px}.editor-figma .transfer-preview-layout{padding:16px 12px;gap:12px}.editor-figma .transfer-text strong{font-size:1.1rem}.editor-figma .transfer-image{min-height:120px}.editor-figma .transfer-image i{height:80px}.editor-figma .transfer-demo-button{padding:6px;font-size:7px}.transfer-preview-layout{border:1px solid #ddd}.transfer-feedback:empty{visibility:hidden}
+@media(max-width:1000px){.feature-pair{gap:2rem}.feature-pair+.feature-pair,.more-features+.copilot-announcement{margin-top:2rem}.editor-workspace{grid-template-columns:52px minmax(0,1fr)}.editor-properties{display:none}.editor-layers{font-size:7px;padding:10px 5px}.editor-figma .transfer-preview-layout{grid-template-columns:1fr;gap:16px}.editor-figma .transfer-image{min-height:90px}.editor-figma .transfer-image i{height:65px;width:55%}}
+[data-theme=dark] .hero h1>.platform-name{color:var(--ink)}
+[data-theme=dark] .film,[data-theme=dark] .film-poster{background:#242424;color:#eee}
+[data-theme=dark] .film-status{background:#353535;color:#eee}
+[data-theme=dark] .skip-link{background:#eee;color:#111}
+.smart-transfer .copilot-block-label{background:#4364a7}
