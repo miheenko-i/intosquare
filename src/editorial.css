@@ -52,3 +52,4 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 @media(prefers-reduced-motion:reduce){.smart-transfer *{animation:none!important}.smart-source{transform:translateY(-12px) scale(.88);opacity:.35;z-index:1}.smart-scan{display:none}.smart-transfer .copilot-result{opacity:1;transform:none}}
 
 .smart-transfer{filter:grayscale(1)}
+.price-card .plan-top{min-block-size:76px}@media(max-width:600px){.price-card .plan-top{min-block-size:0}}
