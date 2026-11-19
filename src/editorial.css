@@ -86,3 +86,41 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 [data-theme=dark] .film-status{background:#353535;color:#eee}
 [data-theme=dark] .skip-link{background:#eee;color:#111}
 .smart-transfer .copilot-block-label{background:#4364a7}
+
+/* Mobile review: shared spacing, reachable controls and clear fixed UI. */
+:root{--feature-gap:2rem}
+.feature-pair{gap:var(--feature-gap)}.feature-pair+.feature-pair,.more-features+.copilot-announcement{margin-top:var(--feature-gap)}
+html{scroll-padding-top:calc(var(--header-height,88px) + 16px);scroll-padding-bottom:calc(var(--promo-height,60px) + 16px)}
+.sale-bar{padding-bottom:env(safe-area-inset-bottom,0px);padding-inline:env(safe-area-inset-left,0px) env(safe-area-inset-right,0px)}
+.site-footer{padding-bottom:calc(var(--promo-height,60px) + 2rem)}
+[data-theme=dark] .price-card.price-pro,[data-theme=dark] .closing-panel,[data-theme=dark] .site-footer{background:#1c1c1c}
+@media(max-width:1000px){:root{--feature-gap:1rem}}
+@media(max-width:900px){
+ .site-header,.site-header.is-compact{gap:8px;padding:12px 16px;min-height:76px}
+ .site-header .brand{font-size:19px;gap:8px}.site-header .brand svg{width:23px;height:28px}
+ .site-header .header-cta{display:none}.menu-toggle{display:block;margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--ink);padding:10px 12px;border-radius:30px;font-size:12px;min-height:44px;flex:none}
+ .header-actions{gap:4px}.account-link{width:44px;min-width:44px;justify-content:center}.account-link svg{display:block}.account-link span{display:none}.theme-toggle{width:44px;height:44px;flex:none}
+ .site-header nav{display:none;position:absolute;top:calc(100% + 4px);left:16px;right:16px;margin:0;padding:8px;border:1px solid var(--line);border-radius:12px;background:#fff;color:#111;box-shadow:0 12px 30px #0001;max-height:calc(100dvh - var(--header-height,76px) - var(--promo-height,60px) - 16px);overflow-y:auto;overscroll-behavior:contain}
+ .site-header nav.open{display:flex;flex-direction:column;gap:0}.site-header nav a{display:flex;align-items:center;min-height:44px;padding:12px 14px;font-size:15px}.site-header nav .mobile-pro-link{display:flex}
+ .site-header nav a::after{left:14px;right:14px;bottom:6px}
+}
+@media(max-width:360px){.site-header,.site-header.is-compact{gap:4px}.site-header .brand{font-size:17px;gap:6px}.site-header .brand svg{width:20px;height:26px}.header-actions{gap:0}.menu-toggle{padding-inline:8px}}
+@media(pointer:coarse){
+ .device-switch button,.appearance-demo .device-switch button,.section-choice,.mini-copy,.text-button{min-height:44px;min-width:44px}
+ .edit-controls{flex-wrap:wrap;gap:8px}.edit-controls button{width:44px;height:44px;border:10px solid #fff}.edit-controls>div{gap:6px}
+ [data-theme=dark] .edit-controls button{border-color:#222}
+ .footer-main>a:not(.brand),.footer-legal a,.footer-bottom>a{display:inline-flex;align-items:center;min-height:44px}
+}
+@media(max-width:700px){
+ .feature-card .feature-copy{padding:24px 24px 0}.feature-card .feature-copy p{font-size:1rem}
+ .closing-panel .install-plugins{padding-block:3rem}.section{padding-block:3rem}
+ .style-demo{margin-top:24px}.responsive-demo{min-height:0;padding-bottom:8px}
+ .film-poster{min-height:0;gap:1.5rem;padding:1rem}.film-caption{flex-wrap:wrap}
+ .hero-proof{font-size:.75rem;line-height:1.5}.hero-proof span{flex:1 1 120px}
+ .appearance-buttons{padding:16px;gap:8px}.appearance-preview>strong{padding:20px 16px 0}.appearance-line{margin-inline:16px}.appearance-bottom{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){.site-header nav{scroll-behavior:auto}}
+
+@media(max-width:900px){.site-header.is-compact .theme-toggle{width:44px;height:44px}.site-header.is-compact nav{top:calc(100% + 4px)}.site-header.is-compact .menu-toggle{min-height:44px}}
+@media(pointer:coarse){.copy-animation .mini-copy{min-height:44px}}
+@media(max-width:700px){.style-demo{height:auto;display:grid;gap:16px;margin:24px;padding-bottom:24px}.style-panel,.style-result{width:100%;position:static;animation:none}.style-result{padding:24px}.style-demo>.text-button{position:static;justify-self:start;min-height:44px}.style-result b{font-size:2rem}.style-panel{padding:16px}.style-row{font-size:.7rem}.style-status{font-size:.65rem}}
