@@ -1,5 +1,5 @@
 /* IntoSquare editorial layout: shared twelve-column canvas. */
-:root{--page-margin:clamp(1.25rem,3vw,3rem);--grid-gap:1.5rem;--page-max:88rem;--accent:#d2d2d2;--surface:#f4f4f4}
+:root{--page-margin:clamp(1.25rem,3vw,3rem);--grid-gap:1.5rem;--page-max:88rem;--accent:var(--ink);--surface:#f4f4f4}
 body::before,body::after{display:none!important}
 .page-width{width:min(var(--page-max),calc(100% - var(--page-margin)*2))}
 .site-header,.site-header.is-compact{padding-inline:var(--page-margin);border:0;box-shadow:none;background:#fff;min-height:88px}
@@ -31,7 +31,7 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 @media(max-width:1000px){.hero{padding-top:3rem}.hero-title{grid-column:span 7}.hero-aside{grid-column:span 5}.hero h1{font-size:2.75rem}.film-preview{width:75%}.film-poster{min-height:28rem}.section{padding-block:4rem}.copilot-announcement-inner{padding:2rem;gap:2rem}}
 @media(max-width:700px){:root{--grid-gap:1rem}.site-header,.site-header.is-compact{min-height:76px}.hero{padding-top:2rem}.hero-grid{grid-template-columns:1fr;gap:1.5rem;margin-bottom:2rem}.hero-title,.hero-aside{grid-column:1;max-width:none}.hero h1{font-size:clamp(2.25rem,7vw,3rem)}.hero-aside p{font-size:1rem;max-width:38ch}.hero-eyebrow{font-size:.75rem;margin-bottom:1rem}.hero-aside .plugin-actions{gap:.5rem}.hero-aside .button{padding:12px 14px}.film-poster{aspect-ratio:auto;min-height:24rem;padding:1rem;gap:1.5rem}.film-preview{width:100%}.film-preview .sample-site{padding:16px}.film-preview .sample-art{height:150px}.film-caption{font-size:.875rem}.film-status{font-size:.625rem;padding:10px}.hero-proof{flex-wrap:wrap;gap:.5rem 1rem;font-size:.625rem}.section-intro{display:block;margin-bottom:2rem}.section-intro p{margin-top:1rem}.section-intro h2,.faq h2{font-size:2rem}.feature-wide{grid-template-columns:1fr;gap:2rem;padding-block:3rem}.feature-wide .feature-copy,.feature-wide .edit-demo{grid-column:1}.feature-pair{margin-top:2rem}.feature-card .feature-copy{padding:1.5rem 1.5rem 0}.copilot-announcement-inner{padding:1.5rem}.copilot-announcement h3{font-size:2rem}.install-plugins{padding-block:3rem}}
 @media(prefers-reduced-motion:reduce){.film *{animation:none!important}}
-.reveal,.will-reveal:not(.is-visible){opacity:1;transform:none;filter:none;transition:none}
+
 
 .button{font-weight:450;box-shadow:none;border-color:var(--line)}
 
@@ -51,7 +51,15 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 @media(max-width:600px){.price-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.smart-transfer *{animation:none!important}.smart-source{transform:translateY(-12px) scale(.88);opacity:.35;z-index:1}.smart-scan{display:none}.smart-transfer .copilot-result{opacity:1;transform:none}}
 
-.smart-transfer{filter:grayscale(1)}
+
 .price-card .plan-top{min-block-size:76px}@media(max-width:600px){.price-card .plan-top{min-block-size:0}}
 
 :root:not([data-theme=dark]) .copilot-announcement,:root:not([data-theme=dark]) .film,:root:not([data-theme=dark]) .film-poster{background:#f7f7f7}
+
+.hero h1>.platform-name{color:var(--ink)}.platform-name{display:inline-flex;align-items:baseline;gap:.15em;white-space:nowrap}.platform-logo{width:.64em;height:.72em;display:inline-block;align-self:center;flex:none}.platform-logo-squarespace{width:.84em}
+.account-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:14px}.account-link svg{display:none;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5}.account-link:hover{color:var(--muted)}
+.sale-bar{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:60}.sale-bar + .site-header{position:sticky;top:0}.site-footer{padding-bottom:6rem}
+@media(max-width:700px){.header-actions{gap:6px}.account-link{width:30px;justify-content:center}.account-link svg{display:block}.account-link span{display:none}.site-header,.site-header.is-compact{gap:8px}.site-header .brand{font-size:19px}.menu-toggle{padding:10px 12px}.hero h1{font-size:clamp(2rem,6.5vw,3rem)}.site-footer{padding-bottom:8rem}}
+
+.closing-panel,.site-footer{background:#f7f7f7}.closing-panel .install-plugins{border:0;margin-bottom:0;padding:4rem 0}.site-footer{width:100%;padding-inline:max(var(--page-margin),calc((100% - var(--page-max))/2));margin:0;padding-top:3rem}.smart-transfer .copilot-result{background:#f2f0e9;color:#2f493b}.smart-transfer .copilot-demo-image{background:#aabfa7}.smart-transfer .copilot-demo-image i{background:linear-gradient(110deg,#f5dcc9,#c48e70)}.smart-transfer .copilot-demo-button{background:#2f493b;color:#fff}.smart-transfer .copilot-block-label{background:#597bca}.smart-transfer .copilot-result-layout>div{border-color:#8d9fb9}
+[data-theme=dark] .closing-panel,[data-theme=dark] .site-footer{background:#2d2d2d}
