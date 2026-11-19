@@ -12,7 +12,7 @@ body::before,body::after{display:none!important}
 .film{width:100%;margin:0;overflow:hidden;border-radius:4px;background:#dddddd;color:#2b2b2b}.film video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#171717}
 .film-poster{position:relative;min-height:32rem;aspect-ratio:2.2;display:grid;grid-template-rows:auto 1fr auto;gap:2rem;padding:2rem;background:#dddddd}
 .film-label{font-size:.625rem;letter-spacing:.12em}.film-preview{width:58%;max-width:48rem;justify-self:center;align-self:center;border:1px solid #ffffffa0;border-radius:5px;overflow:hidden;box-shadow:0 16px 36px #37373720}
-.film-preview .sample-site{--sample-bg:#cacaca;padding:24px}.film-preview .sample-title{font-size:clamp(1.75rem,3vw,3rem)}.film-preview .sample-art{height:210px}
+.film-preview .sample-site{--sample-bg:#fff;padding:24px}.film-preview .sample-title{font-size:clamp(1.75rem,3vw,3rem)}.film-preview .sample-art{height:210px}
 .film-caption{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:1.125rem}.film-status{font-size:.75rem;padding:12px 18px;border-radius:50px;background:#f9f9f9;color:#525252}
 .editable .sample-art::after{display:none}.hero-proof{justify-content:flex-start;gap:2rem;padding-block:1.5rem;font-size:.75rem}.hero-proof span:before{display:none}
 h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:1.12;letter-spacing:-.035em}.section{padding-block:6rem}.section-intro{text-align:left;max-width:none;margin-bottom:3rem;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--grid-gap);align-items:end}.section-intro h2{grid-column:span 8;margin:0}.section-intro p{grid-column:span 4;margin:0;font-size:1rem;max-width:36ch}
@@ -63,3 +63,5 @@ h2,.section-intro h2{font-size:clamp(2rem,3vw,3rem);font-weight:450;line-height:
 
 .closing-panel,.site-footer{background:#f7f7f7}.closing-panel .install-plugins{border:0;margin-bottom:0;padding:4rem 0}.site-footer{width:100%;padding-inline:max(var(--page-margin),calc((100% - var(--page-max))/2));margin:0;padding-top:3rem}.smart-transfer .copilot-result{background:#f2f0e9;color:#2f493b}.smart-transfer .copilot-demo-image{background:#aabfa7}.smart-transfer .copilot-demo-image i{background:linear-gradient(110deg,#f5dcc9,#c48e70)}.smart-transfer .copilot-demo-button{background:#2f493b;color:#fff}.smart-transfer .copilot-block-label{background:#597bca}.smart-transfer .copilot-result-layout>div{border-color:#8d9fb9}
 [data-theme=dark] .closing-panel,[data-theme=dark] .site-footer{background:#2d2d2d}
+
+.film-preview .sample-site{background:#fff}

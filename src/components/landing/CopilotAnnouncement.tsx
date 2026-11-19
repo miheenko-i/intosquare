@@ -3,7 +3,7 @@ export function CopilotAnnouncement() {
   return <article className="copilot-announcement" id="copilot" aria-labelledby="copilot-title">
     <div className="copilot-announcement-inner">
       <div className="copilot-announcement-copy">
-        <div className="copilot-announcement-meta"><span>Smart mode</span><span>Beta · 5 free generations</span></div>
+        <div className="copilot-announcement-meta"><span>Smart mode</span><span>β · 5 free generations</span></div>
         <h3 id="copilot-title">A prompt or a picture.<br/>AI will do the job.</h3>
         <p>Describe a section, add a screenshot or use a Figma reference. Bring your own photos. Smart creates native Squarespace blocks with desktop and mobile layouts, using your site’s text styles — ready for you to keep editing.</p>
         <ol className="copilot-announcement-steps"><li>Describe or upload</li><li>Preview your design</li><li>Add to your page</li></ol>
